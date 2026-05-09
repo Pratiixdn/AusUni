@@ -1,0 +1,206 @@
+{% extends "base.html" %}
+{% load university_extras %}
+
+{% block title %}{{ course.name }} – {{ university.name }} | AusUni{% endblock %}
+{% block meta_description %}{{ course.name }} at {{ university.name }}. {{ course.duration }} | Tuition from AUD {{ course.tuition_fee_annual|default:"N/A" }}/yr.{% endblock %}
+
+{% block breadcrumb %}
+<div class="breadcrumb-bar">
+    <div class="container">
+        <nav aria-label="breadcrumb"><ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Home</a></li>
+            <li class="breadcrumb-item"><a href="/courses/">Courses</a></li>
+            <li class="breadcrumb-item"><a href="{{ university.get_absolute_url }}">{{ university.name }}</a></li>
+            <li class="breadcrumb-item active">{{ course.name }}</li>
+        </ol></nav>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="container section">
+    <div class="row g-4">
+
+        <!-- Main Content -->
+        <div class="col-lg-8">
+
+            <!-- Course Header -->
+            <div class="uni-card mb-4" style="padding:2rem;">
+                <div class="d-flex align-items-center gap-2 mb-2">
+                    <span class="badge-uni badge-public">{{ course.get_level_display }}</span>
+                    {% if course.field_of_study %}
+                    <span class="badge-uni" style="background:var(--accent-gold-light);color:#92600a;">{{ course.field_of_study }}</span>
+                    {% endif %}
+                </div>
+                <h1 style="font-size:1.8rem;font-weight:700;color:var(--text-primary);margin-bottom:0.5rem;">{{ course.name }}</h1>
+                <p style="color:var(--text-secondary);font-size:1rem;">
+                    <a href="{{ university.get_absolute_url }}" style="color:var(--primary);font-weight:600;">{{ university.name }}</a>
+                    &nbsp;·&nbsp; {{ university.state.name }}
+                </p>
+
+                <!-- Key Stats -->
+                <div class="row g-3 mt-2">
+                    <div class="col-6 col-md-3 text-center">
+                        <div style="background:var(--bg-secondary);border-radius:12px;padding:1rem;">
+                            <div style="font-size:1.4rem;">⏱️</div>
+                            <div style="font-weight:700;color:var(--text-primary);font-size:0.95rem;">{{ course.duration }}</div>
+                            <div style="font-size:0.75rem;color:var(--text-muted);">Duration</div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3 text-center">
+                        <div style="background:var(--bg-secondary);border-radius:12px;padding:1rem;">
+                            <div style="font-size:1.4rem;">💰</div>
+                            {% if course.tuition_fee_annual %}
+                            <div style="font-weight:700;color:var(--text-primary);font-size:0.95rem;">AUD {{ course.tuition_fee_annual|floatformat:0 }}</div>
+                            <div style="font-size:0.75rem;color:var(--text-muted);">Per Year</div>
+                            {% else %}
+                            <div style="font-weight:700;color:var(--text-muted);font-size:0.95rem;">Contact Uni</div>
+                            <div style="font-size:0.75rem;color:var(--text-muted);">Tuition Fee</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3 text-center">
+                        <div style="background:var(--bg-secondary);border-radius:12px;padding:1rem;">
+                            <div style="font-size:1.4rem;">📅</div>
+                            <div style="font-weight:700;color:var(--text-primary);font-size:0.95rem;">{{ course.intake_months|default:"Feb / Jul" }}</div>
+                            <div style="font-size:0.75rem;color:var(--text-muted);">Intake</div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3 text-center">
+                        <div style="background:var(--bg-secondary);border-radius:12px;padding:1rem;">
+                            <div style="font-size:1.4rem;">🌏</div>
+                            {% if course.ielts_overall %}
+                            <div style="font-weight:700;color:var(--text-primary);font-size:0.95rem;">{{ course.ielts_overall }}</div>
+                            <div style="font-size:0.75rem;color:var(--text-muted);">IELTS Overall</div>
+                            {% else %}
+                            <div style="font-weight:700;color:var(--text-muted);font-size:0.95rem;">N/A</div>
+                            <div style="font-size:0.75rem;color:var(--text-muted);">IELTS</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Description -->
+            {% if course.description %}
+            <div class="uni-card mb-4" style="padding:1.5rem;">
+                <h5 style="font-weight:700;color:var(--text-primary);margin-bottom:1rem;">📖 About This Course</h5>
+                <p style="color:var(--text-secondary);line-height:1.8;">{{ course.description }}</p>
+            </div>
+            {% endif %}
+
+            <!-- Course Structure -->
+            {% if course.course_structure %}
+            <div class="uni-card mb-4" style="padding:1.5rem;">
+                <h5 style="font-weight:700;color:var(--text-primary);margin-bottom:1rem;">🏗️ Course Structure</h5>
+                <p style="color:var(--text-secondary);line-height:1.8;">{{ course.course_structure }}</p>
+            </div>
+            {% endif %}
+
+            <!-- Career Outcomes -->
+            {% if course.career_outcomes %}
+            <div class="uni-card mb-4" style="padding:1.5rem;">
+                <h5 style="font-weight:700;color:var(--text-primary);margin-bottom:1rem;">💼 Career Outcomes</h5>
+                <p style="color:var(--text-secondary);line-height:1.8;">{{ course.career_outcomes }}</p>
+            </div>
+            {% endif %}
+
+            <!-- English Requirements -->
+            {% if course.ielts_overall or course.ielts_min_band %}
+            <div class="uni-card mb-4" style="padding:1.5rem;">
+                <h5 style="font-weight:700;color:var(--text-primary);margin-bottom:1rem;">🌏 English Requirements</h5>
+                <div class="row g-3">
+                    {% if course.ielts_overall %}
+                    <div class="col-6 col-md-4">
+                        <div style="background:var(--bg-secondary);border-radius:10px;padding:1rem;text-align:center;">
+                            <div style="font-weight:700;font-size:1.3rem;color:var(--primary);">{{ course.ielts_overall }}</div>
+                            <div style="font-size:0.78rem;color:var(--text-muted);">IELTS Overall</div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% if course.ielts_min_band %}
+                    <div class="col-6 col-md-4">
+                        <div style="background:var(--bg-secondary);border-radius:10px;padding:1rem;text-align:center;">
+                            <div style="font-weight:700;font-size:1.3rem;color:var(--primary);">{{ course.ielts_min_band }}</div>
+                            <div style="font-size:0.78rem;color:var(--text-muted);">Min Band Score</div>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            {% endif %}
+
+        </div>
+
+        <!-- Sidebar -->
+        <div class="col-lg-4">
+
+            <!-- Apply / Official Link -->
+            <div class="sidebar-card mb-3">
+                <h6>🎓 Apply Now</h6>
+                {% if university.website %}
+                <a href="{{ university.website }}" target="_blank" class="btn btn-primary w-100 mb-2">
+                    Visit Official Website
+                </a>
+                {% endif %}
+                <a href="{{ university.get_absolute_url }}" class="btn btn-outline-secondary w-100">
+                    View University Profile
+                </a>
+            </div>
+
+            <!-- Tuition Fees -->
+            <div class="sidebar-card mb-3">
+                <h6>💰 Tuition Fees</h6>
+                {% if course.tuition_fee_annual %}
+                <div class="d-flex justify-content-between mb-1">
+                    <span style="color:var(--text-secondary);font-size:0.88rem;">Annual Fee</span>
+                    <strong>AUD {{ course.tuition_fee_annual|floatformat:0 }}</strong>
+                </div>
+                {% endif %}
+                {% if course.tuition_fee_total %}
+                <div class="d-flex justify-content-between mb-1">
+                    <span style="color:var(--text-secondary);font-size:0.88rem;">Total Fee</span>
+                    <strong>AUD {{ course.tuition_fee_total|floatformat:0 }}</strong>
+                </div>
+                {% endif %}
+                {% if course.tuition_note %}
+                <p style="font-size:0.75rem;color:var(--text-muted);margin-top:0.5rem;margin-bottom:0;">{{ course.tuition_note }}</p>
+                {% endif %}
+                {% if not course.tuition_fee_annual and not course.tuition_fee_total %}
+                <p style="color:var(--text-muted);font-size:0.88rem;margin:0;">Contact university for fee details.</p>
+                {% endif %}
+            </div>
+
+            <!-- Next Intake -->
+            {% if course.next_intake %}
+            <div class="sidebar-card mb-3">
+                <h6>📅 Next Intake</h6>
+                <p style="font-weight:600;color:var(--primary);margin:0;">{{ course.next_intake }}</p>
+            </div>
+            {% endif %}
+
+            <!-- Related Courses -->
+            {% if related_courses %}
+            <div class="sidebar-card mb-3">
+                <h6>📚 Other Courses at {{ university.name }}</h6>
+                {% for rc in related_courses %}
+                <a href="{% url 'course_detail' university.slug rc.slug %}" style="display:block;padding:0.5rem 0;border-bottom:1px solid var(--border);color:var(--text-primary);text-decoration:none;font-size:0.88rem;">
+                    <span class="badge-uni badge-public" style="font-size:0.68rem;">{{ rc.get_level_display }}</span>
+                    {{ rc.name }}
+                </a>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            <!-- Disclaimer -->
+            <div class="sidebar-card" style="border:1px solid rgba(245,166,35,0.3);background:var(--accent-gold-light);">
+                <p style="font-size:0.75rem;color:#92600a;margin:0;">
+                    <i class="bi bi-info-circle me-1"></i>
+                    Fee and entry information is indicative. Always verify with the university directly before applying.
+                </p>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}
