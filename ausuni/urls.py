@@ -1,5 +1,6 @@
 """AusUni URL Configuration"""
 
+from django.http import HttpResponse
 from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
@@ -13,7 +14,12 @@ sitemaps = {
     'states': StateSitemap,
 }
 
+def ads_txt(request):
+    content = "google.com, pub-8936104184201511, DIRECT, f08c47fec0942fa0\n"
+    return HttpResponse(content, content_type='text/plain') 
+
 urlpatterns = [
+    path('ads.txt', ads_txt),
     path('admin/', admin.site.urls),
     path('', include('universities.urls')),
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
