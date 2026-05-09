@@ -1,0 +1,185 @@
+{% extends "base.html" %}
+{% load university_extras %}
+
+{% block title %}Compare Universities | AusUni{% endblock %}
+{% block meta_description %}Compare Australian universities side by side — fees, rankings, courses, scholarships and more.{% endblock %}
+
+{% block content %}
+<div class="container section">
+
+    <div class="mb-4">
+        <h1 style="font-family:var(--font-display);font-weight:800;font-size:2rem;">Compare Universities</h1>
+        <p style="color:var(--text-secondary);">Select up to 3 universities to compare side by side.</p>
+    </div>
+
+    <!-- University Selector -->
+    <div class="sidebar-card mb-4">
+        <form method="get" action="{% url 'compare' %}">
+            <div class="row g-3 align-items-end">
+                <div class="col-md-4">
+                    <label style="font-size:0.82rem;font-weight:600;color:var(--text-secondary);">University 1</label>
+                    <select name="uni" class="form-select mt-1">
+                        <option value="">-- Select --</option>
+                        {% for uni in all_universities %}
+                        <option value="{{ uni.slug }}" {% if uni.slug == selected_slugs.0 %}selected{% endif %}>{{ uni.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label style="font-size:0.82rem;font-weight:600;color:var(--text-secondary);">University 2</label>
+                    <select name="uni" class="form-select mt-1">
+                        <option value="">-- Select --</option>
+                        {% for uni in all_universities %}
+                        <option value="{{ uni.slug }}" {% if uni.slug == selected_slugs.1 %}selected{% endif %}>{{ uni.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label style="font-size:0.82rem;font-weight:600;color:var(--text-secondary);">University 3 (optional)</label>
+                    <select name="uni" class="form-select mt-1">
+                        <option value="">-- Select --</option>
+                        {% for uni in all_universities %}
+                        <option value="{{ uni.slug }}" {% if uni.slug == selected_slugs.2 %}selected{% endif %}>{{ uni.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-12">
+                    <button type="submit" class="btn-primary-aus">Compare Now</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- Comparison Table -->
+    {% if universities %}
+    <div class="sidebar-card" style="overflow-x:auto;">
+        <table style="width:100%;border-collapse:collapse;">
+
+            <!-- University Names -->
+            <thead>
+                <tr style="border-bottom:2px solid var(--border);">
+                    <th style="padding:1rem;font-size:0.8rem;color:var(--text-muted);width:180px;"></th>
+                    {% for uni in universities %}
+                    <th style="padding:1rem;text-align:center;">
+                        <a href="{{ uni.get_absolute_url }}" style="font-family:var(--font-display);font-weight:800;font-size:1rem;color:var(--primary);text-decoration:none;">{{ uni.name }}</a>
+                        {% if uni.is_go8 %}<br><span class="badge-uni badge-go8" style="font-size:0.65rem;">⭐ Go8</span>{% endif %}
+                    </th>
+                    {% endfor %}
+                </tr>
+            </thead>
+
+            <tbody>
+                <!-- Location -->
+                <tr style="border-bottom:1px solid var(--border);background:var(--bg-secondary);">
+                    <td style="padding:0.875rem 1rem;font-size:0.82rem;font-weight:600;color:var(--text-secondary);">📍 Location</td>
+                    {% for uni in universities %}
+                    <td style="padding:0.875rem 1rem;text-align:center;font-size:0.88rem;">
+                        {% if uni.city %}{{ uni.city.name }}, {% endif %}{{ uni.state.abbreviation }}
+                    </td>
+                    {% endfor %}
+                </tr>
+
+                <!-- Type -->
+                <tr style="border-bottom:1px solid var(--border);">
+                    <td style="padding:0.875rem 1rem;font-size:0.82rem;font-weight:600;color:var(--text-secondary);">🏛️ Type</td>
+                    {% for uni in universities %}
+                    <td style="padding:0.875rem 1rem;text-align:center;font-size:0.88rem;">{{ uni.get_institution_type_display }}</td>
+                    {% endfor %}
+                </tr>
+
+                <!-- Established -->
+                <tr style="border-bottom:1px solid var(--border);background:var(--bg-secondary);">
+                    <td style="padding:0.875rem 1rem;font-size:0.82rem;font-weight:600;color:var(--text-secondary);">📅 Established</td>
+                    {% for uni in universities %}
+                    <td style="padding:0.875rem 1rem;text-align:center;font-size:0.88rem;">{{ uni.established_year|default:"—" }}</td>
+                    {% endfor %}
+                </tr>
+
+                <!-- QS Ranking -->
+                <tr style="border-bottom:1px solid var(--border);">
+                    <td style="padding:0.875rem 1rem;font-size:0.82rem;font-weight:600;color:var(--text-secondary);">🏆 QS Ranking</td>
+                    {% for uni in universities %}
+                    <td style="padding:0.875rem 1rem;text-align:center;font-size:0.88rem;font-weight:700;color:var(--primary);">{{ uni.ranking_qs|default:"—" }}</td>
+                    {% endfor %}
+                </tr>
+
+                <!-- THE Ranking -->
+                <tr style="border-bottom:1px solid var(--border);background:var(--bg-secondary);">
+                    <td style="padding:0.875rem 1rem;font-size:0.82rem;font-weight:600;color:var(--text-secondary);">⭐ THE Ranking</td>
+                    {% for uni in universities %}
+                    <td style="padding:0.875rem 1rem;text-align:center;font-size:0.88rem;">{{ uni.ranking_times|default:"—" }}</td>
+                    {% endfor %}
+                </tr>
+
+                <!-- Total Students -->
+                <tr style="border-bottom:1px solid var(--border);">
+                    <td style="padding:0.875rem 1rem;font-size:0.82rem;font-weight:600;color:var(--text-secondary);">👥 Total Students</td>
+                    {% for uni in universities %}
+                    <td style="padding:0.875rem 1rem;text-align:center;font-size:0.88rem;">{{ uni.total_students|default:"—" }}</td>
+                    {% endfor %}
+                </tr>
+
+                <!-- International Students -->
+                <tr style="border-bottom:1px solid var(--border);background:var(--bg-secondary);">
+                    <td style="padding:0.875rem 1rem;font-size:0.82rem;font-weight:600;color:var(--text-secondary);">🌏 International</td>
+                    {% for uni in universities %}
+                    <td style="padding:0.875rem 1rem;text-align:center;font-size:0.88rem;">{{ uni.international_students|default:"—" }}</td>
+                    {% endfor %}
+                </tr>
+
+                <!-- Cost of Living -->
+                <tr style="border-bottom:1px solid var(--border);">
+                    <td style="padding:0.875rem 1rem;font-size:0.82rem;font-weight:600;color:var(--text-secondary);">💰 Cost of Living</td>
+                    {% for uni in universities %}
+                    <td style="padding:0.875rem 1rem;text-align:center;font-size:0.88rem;">{{ uni.cost_of_living|default:"—" }}</td>
+                    {% endfor %}
+                </tr>
+
+                <!-- Courses -->
+                <tr style="border-bottom:1px solid var(--border);background:var(--bg-secondary);">
+                    <td style="padding:0.875rem 1rem;font-size:0.82rem;font-weight:600;color:var(--text-secondary);">📚 Courses</td>
+                    {% for uni in universities %}
+                    <td style="padding:0.875rem 1rem;text-align:center;font-size:0.88rem;font-weight:700;">{{ uni.courses.count }}</td>
+                    {% endfor %}
+                </tr>
+
+                <!-- Scholarships -->
+                <tr style="border-bottom:1px solid var(--border);">
+                    <td style="padding:0.875rem 1rem;font-size:0.82rem;font-weight:600;color:var(--text-secondary);">🎓 Scholarships</td>
+                    {% for uni in universities %}
+                    <td style="padding:0.875rem 1rem;text-align:center;font-size:0.88rem;font-weight:700;">{{ uni.scholarships.count }}</td>
+                    {% endfor %}
+                </tr>
+
+                <!-- Popular Courses -->
+                <tr style="border-bottom:1px solid var(--border);background:var(--bg-secondary);">
+                    <td style="padding:0.875rem 1rem;font-size:0.82rem;font-weight:600;color:var(--text-secondary);">🔥 Popular Courses</td>
+                    {% for uni in universities %}
+                    <td style="padding:0.875rem 1rem;text-align:center;">
+                        {% if uni.popular_courses %}
+                        <div class="d-flex flex-wrap gap-1 justify-content-center">
+                            {% for course_name in uni.popular_courses|split:", " %}
+                            <span class="badge-uni badge-public" style="font-size:0.65rem;">{{ course_name }}</span>
+                            {% endfor %}
+                        </div>
+                        {% else %}—{% endif %}
+                    </td>
+                    {% endfor %}
+                </tr>
+
+                <!-- View Profile -->
+                <tr>
+                    <td style="padding:1rem;"></td>
+                    {% for uni in universities %}
+                    <td style="padding:1rem;text-align:center;">
+                        <a href="{{ uni.get_absolute_url }}" class="btn-primary-aus" style="font-size:0.82rem;">View Profile</a>
+                    </td>
+                    {% endfor %}
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    {% endif %}
+
+</div>
+{% endblock %}
