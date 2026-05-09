@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block title %}Saved Universities | AusUni{% endblock %}
+{% block meta_description %}Your saved Australian universities. Review and compare bookmarked universities.{% endblock %}
+
+{% block content %}
+<div class="container section">
+
+    <div class="mb-4">
+        <h1 style="font-family:var(--font-display);font-weight:800;font-size:2rem;">
+            <i class="bi bi-bookmark-heart-fill text-accent me-2"></i>Saved Universities
+        </h1>
+        <p style="color:var(--text-secondary);">Universities you have bookmarked during this session.</p>
+    </div>
+
+    {% if bookmarks %}
+    <div class="row g-4">
+        {% for bookmark in bookmarks %}
+        <div class="col-md-6 col-lg-4">
+            <div class="uni-card h-100" style="padding:1.5rem;">
+                <div class="d-flex align-items-start gap-3 mb-3">
+                    <div class="uni-logo-large" style="font-size:2rem;">🏛️</div>
+                    <div>
+                        <h5 style="font-family:var(--font-display);font-weight:700;font-size:1rem;margin-bottom:0.25rem;">
+                            <a href="{{ bookmark.university.get_absolute_url }}" style="color:var(--text-primary);text-decoration:none;">
+                                {{ bookmark.university.name }}
+                            </a>
+                        </h5>
+                        {% if bookmark.university.city %}
+                        <p style="font-size:0.8rem;color:var(--text-muted);margin:0;">
+                            <i class="bi bi-geo-alt me-1"></i>{{ bookmark.university.city.name }}, {{ bookmark.university.state.abbreviation }}
+                        </p>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="d-flex gap-2 flex-wrap mb-3">
+                    <span class="badge-uni badge-{{ bookmark.university.institution_type }}">{{ bookmark.university.get_institution_type_display }}</span>
+                    {% if bookmark.university.is_go8 %}<span class="badge-uni badge-go8">⭐ Go8</span>{% endif %}
+                    {% if bookmark.university.ranking_qs %}
+                    <span class="badge-uni" style="background:var(--accent-light);color:var(--accent);">{{ bookmark.university.ranking_qs }}</span>
+                    {% endif %}
+                </div>
+
+                <p style="font-size:0.82rem;color:var(--text-secondary);line-height:1.6;margin-bottom:1rem;">
+                    {{ bookmark.university.description|truncatewords:25 }}
+                </p>
+
+                <div class="d-flex gap-2 mt-auto">
+                    <a href="{{ bookmark.university.get_absolute_url }}" class="btn-primary-aus" style="font-size:0.82rem;">
+                        View Profile
+                    </a>
+                    <button class="btn-bookmark {% if True %}active{% endif %}"
+                            data-url="{% url 'toggle_bookmark' uni_slug=bookmark.university.slug %}"
+                            style="font-size:0.82rem;padding:0.35rem 0.875rem;">
+                        <i class="bi bi-bookmark-x me-1"></i>Remove
+                    </button>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="mt-4">
+        <a href="{% url 'compare' %}?{% for b in bookmarks %}uni={{ b.university.slug }}&{% endfor %}" class="btn-outline-aus">
+            <i class="bi bi-bar-chart-line me-1"></i>Compare These Universities
+        </a>
+    </div>
+
+    {% else %}
+    <div class="text-center" style="padding:4rem 2rem;">
+        <div style="font-size:4rem;margin-bottom:1rem;">🔖</div>
+        <h3 style="font-family:var(--font-display);font-weight:700;margin-bottom:0.5rem;">No saved universities yet</h3>
+        <p style="color:var(--text-secondary);margin-bottom:1.5rem;">Browse universities and click the bookmark button to save them here.</p>
+        <a href="{% url 'university_list' %}" class="btn-primary-aus">Browse Universities</a>
+    </div>
+    {% endif %}
+
+</div>
+{% endblock %}
