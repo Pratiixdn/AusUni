@@ -1,0 +1,329 @@
+{% extends "base.html" %}
+
+{% block title %}AusUni – Study in Australia | University Guide for International Students{% endblock %}
+{% block meta_description %}Explore all Australian universities, courses, tuition fees, scholarships, and admission requirements. Your complete guide to studying in Australia.{% endblock %}
+
+{% block content %}
+
+<!-- ── Hero ── -->
+<section class="hero">
+    <div class="container">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-7">
+                <div class="section-label" style="color: #4ade80;">🇦🇺 Study in Australia</div>
+                <h1 class="hero-title mt-2">
+                    Find Your Perfect<br>
+                    <span>Australian University</span>
+                </h1>
+                <p class="hero-subtitle mt-3">
+                    Explore universities, courses, tuition fees, scholarships, and admission requirements —
+                    all in one place. Trusted by thousands of international students.
+                </p>
+
+                <!-- Hero Search -->
+                <div class="hero-search-bar mt-4">
+                    <input type="text" id="heroSearchInput" placeholder="Try 'IT in Sydney under AUD 35,000' or 'Nursing Melbourne'…" />
+                    <button class="btn-hero-search" onclick="window.location.href='/search/?q='+document.getElementById('heroSearchInput').value">
+                        <i class="bi bi-search"></i> Search
+                    </button>
+                </div>
+
+                <!-- Quick filters -->
+                <div class="d-flex gap-2 flex-wrap mt-3">
+                    <a href="{% url 'university_list' %}?group=go8" class="badge bg-white text-dark px-3 py-2 rounded-pill text-decoration-none" style="font-size:0.78rem;font-weight:600;">🏆 Group of Eight</a>
+                    <a href="{% url 'course_list' %}?level=master" class="badge bg-white text-dark px-3 py-2 rounded-pill text-decoration-none" style="font-size:0.78rem;font-weight:600;">🎓 Master's Degrees</a>
+                    <a href="{% url 'scholarship_list' %}" class="badge bg-white text-dark px-3 py-2 rounded-pill text-decoration-none" style="font-size:0.78rem;font-weight:600;">🏅 Scholarships</a>
+                    <a href="{% url 'course_list' %}?field=Information+Technology" class="badge bg-white text-dark px-3 py-2 rounded-pill text-decoration-none" style="font-size:0.78rem;font-weight:600;">💻 IT Programs</a>
+                </div>
+
+                <!-- Stats -->
+                <div class="hero-stats">
+                    <div class="hero-stat">
+                        <strong data-count="{{ total_universities }}">{{ total_universities }}</strong>
+                        <small>Universities &amp; Institutions</small>
+                    </div>
+                    <div class="hero-stat">
+                        <strong data-count="{{ total_courses }}">{{ total_courses }}</strong>
+                        <small>Courses Listed</small>
+                    </div>
+                    <div class="hero-stat">
+                        <strong data-count="{{ total_scholarships }}">{{ total_scholarships }}</strong>
+                        <small>Scholarships</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-5 d-none d-lg-block text-center">
+                <div style="font-size:9rem;line-height:1;filter:drop-shadow(0 8px 24px rgba(0,0,0,0.3));">🎓</div>
+                <div class="d-flex justify-content-center gap-2 mt-3 flex-wrap">
+                    <span class="badge bg-white bg-opacity-10 text-white px-3 py-2" style="backdrop-filter:blur(4px);font-size:0.8rem;">#18 USYD World Rank</span>
+                    <span class="badge bg-white bg-opacity-10 text-white px-3 py-2" style="backdrop-filter:blur(4px);font-size:0.8rem;">#13 UniMelb World Rank</span>
+                    <span class="badge bg-white bg-opacity-10 text-white px-3 py-2" style="backdrop-filter:blur(4px);font-size:0.8rem;">#19 UNSW World Rank</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ── Browse by State ── -->
+<section class="section" style="background:var(--bg-secondary);">
+    <div class="container">
+        <div class="text-center mb-4">
+            <div class="section-label">Browse by Location</div>
+            <h2 class="section-title">Explore by State</h2>
+            <p class="text-muted mt-2" style="max-width:520px;margin:0 auto;">
+                Each Australian state offers a unique lifestyle, climate, and university culture.
+                Find the right fit for your studies.
+            </p>
+        </div>
+        <div class="row g-3">
+            {% for state in states %}
+            <div class="col-6 col-sm-4 col-lg-3">
+                <a href="{% url 'state_detail' slug=state.slug %}" class="card-state">
+                    <div class="card-state-abbr">{{ state.abbreviation }}</div>
+                    <div class="card-state-name">{{ state.name }}</div>
+                    <div class="card-state-count mt-1">
+                        <i class="bi bi-building me-1"></i>{{ state.uni_count }} Universit{{ state.uni_count|pluralize:"y,ies" }}
+                    </div>
+                    <p class="text-muted mt-2 mb-0" style="font-size:0.78rem;">
+                        Capital: {{ state.capital }}
+                    </p>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- ── Featured Universities ── -->
+<section class="section">
+    <div class="container">
+        <div class="d-flex align-items-center justify-content-between mb-4">
+            <div>
+                <div class="section-label">Top Institutions</div>
+                <h2 class="section-title">Featured Universities</h2>
+            </div>
+            <a href="{% url 'university_list' %}" class="btn-outline-aus d-none d-md-inline-flex">
+                View All <i class="bi bi-arrow-right ms-1"></i>
+            </a>
+        </div>
+        <div class="row g-3">
+            {% for uni in featured_unis %}
+            <div class="col-md-6 col-lg-4">
+                <div class="card-uni">
+                    <!-- Header -->
+                    <div class="d-flex align-items-start gap-3 mb-3">
+                        <div class="card-uni-logo">🏛️</div>
+                        <div class="flex-1">
+                            <h3 class="card-uni-name"><a href="{{ uni.get_absolute_url }}">{{ uni.name }}</a></h3>
+                            <div class="card-uni-meta mt-1">
+                                <i class="bi bi-geo-alt-fill"></i>
+                                {{ uni.city.name|default:"" }}{% if uni.city %}, {% endif %}{{ uni.state.abbreviation }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Badges -->
+                    <div class="d-flex gap-1 flex-wrap mb-3">
+                        <span class="badge-uni badge-{{ uni.institution_type }}">{{ uni.get_institution_type_display }}</span>
+                        {% if uni.is_go8 %}
+                        <span class="badge-uni badge-go8">⭐ Go8</span>
+                        {% elif uni.group_affiliation == 'atn' %}
+                        <span class="badge-uni badge-atn">ATN</span>
+                        {% endif %}
+                        {% if uni.ranking_qs %}
+                        <span class="badge-uni" style="background:var(--accent-purple-light);color:var(--accent-purple);">
+                            {{ uni.ranking_qs }}
+                        </span>
+                        {% endif %}
+                    </div>
+
+                    <!-- Description -->
+                    <p style="font-size:0.82rem;color:var(--text-muted);display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;">
+                        {{ uni.description }}
+                    </p>
+
+                    <!-- Stats -->
+                    <div class="row g-2 mb-3">
+                        <div class="col-4">
+                            <div class="card-stat" style="background:var(--bg-secondary);border-radius:8px;">
+                                <strong>{{ uni.course_count }}</strong>
+                                <small>Courses</small>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="card-stat" style="background:var(--bg-secondary);border-radius:8px;">
+                                <strong>{{ uni.scholarship_count }}</strong>
+                                <small>Scholarships</small>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="card-stat" style="background:var(--bg-secondary);border-radius:8px;">
+                                <strong>{{ uni.established_year|default:"–" }}</strong>
+                                <small>Est.</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Actions -->
+                    <div class="d-flex gap-2">
+                        <a href="{{ uni.get_absolute_url }}" class="btn-primary-aus flex-1 justify-content-center">
+                            <i class="bi bi-info-circle"></i> View Details
+                        </a>
+                        <button class="btn-bookmark btn-bookmark{% if uni.slug in bookmarked_slugs %} active{% endif %}"
+                                data-url="{% url 'toggle_bookmark' uni_slug=uni.slug %}">
+                            <i class="bi bi-bookmark-heart{% if uni.slug in bookmarked_slugs %}-fill{% endif %}"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="text-center mt-4 d-md-none">
+            <a href="{% url 'university_list' %}" class="btn-outline-aus">View All Universities <i class="bi bi-arrow-right ms-1"></i></a>
+        </div>
+    </div>
+</section>
+
+<!-- ── Stats Banner ── -->
+<section class="stats-banner">
+    <div class="container">
+        <div class="row g-4 text-center">
+            <div class="col-6 col-md-3">
+                <div class="stat-item">
+                    <div class="stat-number" data-count="{{ total_universities }}">{{ total_universities }}</div>
+                    <div class="stat-label">Institutions</div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="stat-item">
+                    <div class="stat-number" data-count="{{ total_courses }}">{{ total_courses }}</div>
+                    <div class="stat-label">Courses Listed</div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="stat-item">
+                    <div class="stat-number" data-count="{{ total_scholarships }}">{{ total_scholarships }}</div>
+                    <div class="stat-label">Scholarships</div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="stat-item">
+                    <div class="stat-number">8</div>
+                    <div class="stat-label">States &amp; Territories</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ── Popular Courses ── -->
+<section class="section" style="background:var(--bg-secondary);">
+    <div class="container">
+        <div class="d-flex align-items-center justify-content-between mb-4">
+            <div>
+                <div class="section-label">High Demand</div>
+                <h2 class="section-title">Popular Courses</h2>
+            </div>
+            <a href="{% url 'course_list' %}" class="btn-outline-aus d-none d-md-inline-flex">
+                All Courses <i class="bi bi-arrow-right ms-1"></i>
+            </a>
+        </div>
+        <div class="row g-3">
+            {% for course in popular_courses %}
+            <div class="col-md-6 col-lg-3">
+                <div class="card-course">
+                    <div class="d-flex align-items-center gap-2 mb-2">
+                        <span class="course-level-badge">{{ course.level_display_short }}</span>
+                    </div>
+                    <h6 style="font-family:var(--font-display);font-weight:700;font-size:0.9rem;margin-bottom:0.3rem;">
+                        <a href="{{ course.get_absolute_url }}">{{ course.name }}</a>
+                    </h6>
+                    <p style="font-size:0.78rem;color:var(--text-muted);margin-bottom:0.75rem;">
+                        {{ course.university.name }}
+                    </p>
+                    <div class="d-flex align-items-center justify-content-between">
+                        {% if course.tuition_fee_annual %}
+                        <div class="course-fee">AUD {{ course.tuition_fee_annual|floatformat:0 }}<span style="font-size:0.7rem;font-weight:400;color:var(--text-muted)">/yr</span></div>
+                        {% endif %}
+                        {% if course.ielts_overall %}
+                        <span class="course-ielts">IELTS {{ course.ielts_overall }}</span>
+                        {% endif %}
+                    </div>
+                    {% if course.intake_months %}
+                    <div class="mt-2">
+                        <span class="intake-pill"><i class="bi bi-calendar3 me-1"></i>{{ course.intake_months }}</span>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- ── Why Australia ── -->
+<section class="section">
+    <div class="container">
+        <div class="row g-5 align-items-center">
+            <div class="col-lg-5">
+                <div class="section-label">Why Australia?</div>
+                <h2 class="section-title">The Smart Choice for International Students</h2>
+                <p class="mt-3" style="color:var(--text-secondary);">
+                    Australia is home to 7 of the world's top 100 universities, offers a welcoming multicultural
+                    environment, post-study work visas, and one of the highest quality of life rankings globally.
+                </p>
+                <a href="{% url 'university_list' %}" class="btn-primary-aus mt-4">
+                    <i class="bi bi-search me-1"></i> Explore Universities
+                </a>
+            </div>
+            <div class="col-lg-7">
+                <div class="row g-3">
+                    {% with reasons=why_reasons %}
+                    <div class="col-sm-6">
+                        <div class="sidebar-card" style="border-left:4px solid var(--accent);">
+                            <div style="font-size:2rem;margin-bottom:0.5rem;">🌏</div>
+                            <h6 style="font-family:var(--font-display);font-weight:700;color:var(--text-primary);text-transform:none;letter-spacing:0;font-size:0.95rem;">Global Rankings</h6>
+                            <p style="font-size:0.82rem;color:var(--text-muted);margin:0;">7 Australian universities rank in the QS World Top 100, led by University of Melbourne (#13) and UNSW (#19).</p>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="sidebar-card" style="border-left:4px solid var(--accent-green);">
+                            <div style="font-size:2rem;margin-bottom:0.5rem;">💼</div>
+                            <h6 style="font-family:var(--font-display);font-weight:700;color:var(--text-primary);text-transform:none;letter-spacing:0;font-size:0.95rem;">Post-Study Work Visa</h6>
+                            <p style="font-size:0.82rem;color:var(--text-muted);margin:0;">Graduates can apply for a Temporary Graduate Visa (subclass 485) — up to 4 years work rights in Australia.</p>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="sidebar-card" style="border-left:4px solid var(--accent-gold);">
+                            <div style="font-size:2rem;margin-bottom:0.5rem;">🏅</div>
+                            <h6 style="font-family:var(--font-display);font-weight:700;color:var(--text-primary);text-transform:none;letter-spacing:0;font-size:0.95rem;">Generous Scholarships</h6>
+                            <p style="font-size:0.82rem;color:var(--text-muted);margin:0;">Hundreds of scholarships for international students, from 10% to full tuition waivers at leading universities.</p>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="sidebar-card" style="border-left:4px solid var(--accent-purple);">
+                            <div style="font-size:2rem;margin-bottom:0.5rem;">🌟</div>
+                            <h6 style="font-family:var(--font-display);font-weight:700;color:var(--text-primary);text-transform:none;letter-spacing:0;font-size:0.95rem;">Quality of Life</h6>
+                            <p style="font-size:0.82rem;color:var(--text-muted);margin:0;">Melbourne, Sydney, Adelaide, and Brisbane regularly top global liveability indexes. Safe, clean, multicultural cities.</p>
+                        </div>
+                    </div>
+                    {% endwith %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ── Disclaimer ── -->
+<div style="background:var(--accent-gold-light);border-top:1px solid rgba(245,166,35,0.2);padding:1rem 0;">
+    <div class="container">
+        <p style="margin:0;font-size:0.78rem;color:#92600a;text-align:center;">
+            <i class="bi bi-info-circle me-1"></i>
+            <strong>Disclaimer:</strong> Information on this website is for guidance only and may change.
+            Always verify tuition fees, admission requirements, and scholarship details with official university websites before making any decisions.
+            AusUni is not affiliated with any Australian university or government body.
+        </p>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block title %}Search: "{{ query }}" | AusUni{% endblock %}
+{% block content %}
+<div class="container section">
+    <div class="mb-4">
+        <div class="section-label">Search Results</div>
+        <h1 class="section-title">Results for "{{ query }}"</h1>
+        <p style="color:var(--text-muted);">{{ total_results }} result{{ total_results|pluralize }} found</p>
+    </div>
+
+    {% if results.universities %}
+    <h4 style="font-family:var(--font-display);font-weight:700;margin-bottom:1rem;"><i class="bi bi-building me-2 text-accent"></i>Universities</h4>
+    <div class="row g-3 mb-4">
+        {% for uni in results.universities %}
+        <div class="col-md-6 col-lg-4">
+            <div class="card-uni">
+                <div class="d-flex gap-3 align-items-start mb-2">
+                    <div class="card-uni-logo">🏛️</div>
+                    <div>
+                        <h6 class="card-uni-name"><a href="{{ uni.get_absolute_url }}">{{ uni.name }}</a></h6>
+                        <div class="card-uni-meta mt-1"><i class="bi bi-geo-alt-fill"></i>{{ uni.city.name|default:"" }}{% if uni.city %}, {% endif %}{{ uni.state.abbreviation }}</div>
+                    </div>
+                </div>
+                <div class="d-flex gap-1 flex-wrap mb-2">
+                    <span class="badge-uni badge-{{ uni.institution_type }}">{{ uni.get_institution_type_display }}</span>
+                    {% if uni.is_go8 %}<span class="badge-uni badge-go8">⭐ Go8</span>{% endif %}
+                </div>
+                <a href="{{ uni.get_absolute_url }}" class="btn-outline-aus" style="font-size:0.8rem;padding:0.35rem 0.875rem;">View University</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    {% if results.courses %}
+    <h4 style="font-family:var(--font-display);font-weight:700;margin-bottom:1rem;"><i class="bi bi-book me-2 text-accent"></i>Courses</h4>
+    <div class="row g-3 mb-4">
+        {% for course in results.courses %}
+        <div class="col-md-6 col-lg-4">
+            <div class="card-course">
+                <span class="course-level-badge mb-2 d-inline-block">{{ course.level_display_short }}</span>
+                <h6 style="font-family:var(--font-display);font-weight:700;font-size:0.9rem;margin-bottom:0.25rem;"><a href="{{ course.get_absolute_url }}">{{ course.name }}</a></h6>
+                <p style="font-size:0.78rem;color:var(--accent);font-weight:500;margin-bottom:0.5rem;">{{ course.university.name }}</p>
+                <div class="d-flex align-items-center justify-content-between">
+                    {% if course.tuition_fee_annual %}<div class="course-fee">AUD {{ course.tuition_fee_annual|floatformat:0 }}/yr</div>{% endif %}
+                    {% if course.ielts_overall %}<span class="course-ielts">IELTS {{ course.ielts_overall }}</span>{% endif %}
+                </div>
+                <a href="{{ course.get_absolute_url }}" class="btn-outline-aus mt-2" style="font-size:0.78rem;padding:0.3rem 0.875rem;">View Course</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    {% if not results.universities and not results.courses and not results.scholarships %}
+    <div class="text-center py-5">
+        <div style="font-size:4rem;margin-bottom:1rem;">🔍</div>
+        <h3>No results found for "{{ query }}"</h3>
+        <p style="color:var(--text-muted);">Try a different search term, like a city name, course field, or university name.</p>
+        <a href="{% url 'university_list' %}" class="btn-primary-aus mt-3">Browse All Universities</a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

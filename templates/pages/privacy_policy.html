@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block title %}Privacy Policy | AusUni{% endblock %}
+{% block content %}
+<div class="container" style="max-width:860px;padding-top:3rem;padding-bottom:3rem;">
+    <div class="section-label">Legal</div>
+    <h1 class="section-title mb-2">Privacy Policy</h1>
+    <p style="color:var(--text-muted);margin-bottom:2rem;">Last updated: January 2024</p>
+
+    <div class="sidebar-card mb-4">
+        <h2 style="font-family:var(--font-display);font-weight:700;font-size:1.1rem;margin-bottom:0.75rem;">1. Information We Collect</h2>
+        <p>AusUni collects minimal personal data. We may collect:</p>
+        <ul style="color:var(--text-secondary);line-height:2;">
+            <li><strong>Session data:</strong> Anonymous session identifiers used to remember your bookmarks during your visit.</li>
+            <li><strong>Usage data:</strong> Pages visited, search queries, and general navigation patterns (anonymised).</li>
+            <li><strong>Contact form data:</strong> Name and email address if you contact us via our contact form.</li>
+        </ul>
+    </div>
+
+    <div class="sidebar-card mb-4">
+        <h2 style="font-family:var(--font-display);font-weight:700;font-size:1.1rem;margin-bottom:0.75rem;">2. How We Use Your Information</h2>
+        <p>We use collected information to:</p>
+        <ul style="color:var(--text-secondary);line-height:2;">
+            <li>Provide and improve the AusUni service</li>
+            <li>Respond to contact form inquiries</li>
+            <li>Analyse aggregate usage patterns to improve content</li>
+        </ul>
+        <p>We do <strong>not</strong> sell, trade, or share your personal data with third parties for marketing purposes.</p>
+    </div>
+
+    <div class="sidebar-card mb-4">
+        <h2 style="font-family:var(--font-display);font-weight:700;font-size:1.1rem;margin-bottom:0.75rem;">3. Cookies</h2>
+        <p>AusUni uses cookies for:</p>
+        <ul style="color:var(--text-secondary);line-height:2;">
+            <li><strong>Session cookies:</strong> To maintain your bookmarks during your visit.</li>
+            <li><strong>Theme preferences:</strong> To remember your light/dark mode preference.</li>
+            <li><strong>Analytics:</strong> We may use anonymised analytics to understand site usage.</li>
+        </ul>
+    </div>
+
+    <div class="sidebar-card mb-4">
+        <h2 style="font-family:var(--font-display);font-weight:700;font-size:1.1rem;margin-bottom:0.75rem;">4. Third-Party Links</h2>
+        <p>AusUni contains links to official university websites and external resources. We are not responsible for the privacy practices of these external sites. We encourage you to review the privacy policy of any site you visit.</p>
+    </div>
+
+    <div class="sidebar-card mb-4">
+        <h2 style="font-family:var(--font-display);font-weight:700;font-size:1.1rem;margin-bottom:0.75rem;">5. Advertising</h2>
+        <p>AusUni may display advertisements provided by third-party advertising networks, including Google AdSense. These networks may use cookies to serve ads based on your browsing history. For more information, visit Google's Ad Settings at <a href="https://adssettings.google.com" target="_blank" rel="noopener">adssettings.google.com</a>.</p>
+    </div>
+
+    <div class="sidebar-card mb-4">
+        <h2 style="font-family:var(--font-display);font-weight:700;font-size:1.1rem;margin-bottom:0.75rem;">6. Your Rights</h2>
+        <p>You have the right to:</p>
+        <ul style="color:var(--text-secondary);line-height:2;">
+            <li>Request access to any personal data we hold about you</li>
+            <li>Request deletion of your personal data</li>
+            <li>Opt out of analytics tracking by using browser privacy settings</li>
+        </ul>
+    </div>
+
+    <div class="sidebar-card">
+        <h2 style="font-family:var(--font-display);font-weight:700;font-size:1.1rem;margin-bottom:0.75rem;">7. Contact</h2>
+        <p>For any privacy-related queries, contact us at: <a href="{% url 'contact' %}">our contact page</a>.</p>
+    </div>
+</div>
+{% endblock %}

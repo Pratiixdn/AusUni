@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="{% block meta_description %}AusUni – Your complete guide to Australian universities. Explore courses, tuition fees, scholarships, and admission requirements.{% endblock %}">
+    <meta name="keywords" content="{% block meta_keywords %}Australian universities, study in Australia, international students, courses, scholarships{% endblock %}">
+    <meta property="og:title" content="{% block og_title %}{{ block.super }}{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}Explore all Australian universities, courses, tuition fees, and scholarships.{% endblock %}">
+    <meta property="og:type" content="website">
+    <title>{% block title %}AusUni – Your Complete Guide to Australian Universities{% endblock %}</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/static/css/main.css">
+
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg sticky-top" id="mainNav">
+    <div class="container">
+        <a class="navbar-brand" href="/">
+            <span class="brand-icon">🎓</span>
+            <span class="brand-text">Aus<span class="brand-accent">Uni</span></span>
+        </a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <i class="bi bi-list"></i>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                        <i class="bi bi-map me-1"></i>States
+                    </a>
+                    <ul class="dropdown-menu mega-menu">
+                        {% for state in all_states %}
+                        <li><a class="dropdown-item" href="{% url 'state_detail' slug=state.slug %}">
+                            <span class="state-abbr">{{ state.abbreviation }}</span>
+                            {{ state.name }}
+                        </a></li>
+                        {% endfor %}
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'university_list' %}">
+                        <i class="bi bi-building me-1"></i>Universities
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'course_list' %}">
+                        <i class="bi bi-book me-1"></i>Courses
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'scholarship_list' %}">
+                        <i class="bi bi-award me-1"></i>Scholarships
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'compare' %}">
+                        <i class="bi bi-bar-chart me-1"></i>Compare
+                    </a>
+                </li>
+            </ul>
+
+            <div class="d-flex align-items-center gap-2">
+                <!-- Search -->
+                <form class="d-flex nav-search" action="{% url 'search' %}" method="get">
+                    <div class="input-group">
+                        <input class="form-control search-input" type="search" name="q"
+                               placeholder="Search universities, courses..." aria-label="Search"
+                               id="navSearchInput" autocomplete="off">
+                        <button class="btn btn-search" type="submit">
+                            <i class="bi bi-search"></i>
+                        </button>
+                    </div>
+                    <div id="searchAutocomplete" class="autocomplete-results"></div>
+                </form>
+
+                <!-- Bookmarks -->
+                <a href="{% url 'bookmark_list' %}" class="btn btn-icon" title="Bookmarks">
+                    <i class="bi bi-bookmark-heart"></i>
+                </a>
+
+                <!-- Dark mode toggle -->
+                <button class="btn btn-icon" id="themeToggle" title="Toggle theme">
+                    <i class="bi bi-moon-fill" id="themeIcon"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- Breadcrumb -->
+{% block breadcrumb %}{% endblock %}
+
+<!-- Main Content -->
+<main>
+    {% block content %}{% endblock %}
+</main>
+
+<!-- Footer -->
+<footer class="site-footer">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-lg-4">
+                <div class="footer-brand">
+                    <span class="brand-icon">🎓</span>
+                    <span class="brand-text">Aus<span class="brand-accent">Uni</span></span>
+                </div>
+                <p class="footer-tagline mt-2">Your complete guide to studying in Australia. Helping international students find their perfect university.</p>
+                <div class="disclaimer-box mt-3">
+                    <i class="bi bi-info-circle me-1"></i>
+                    <small>Information may change. Always verify with official university websites before making decisions.</small>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-4">
+                <h6 class="footer-heading">Explore</h6>
+                <ul class="footer-links">
+                    <li><a href="{% url 'university_list' %}">All Universities</a></li>
+                    <li><a href="{% url 'course_list' %}">All Courses</a></li>
+                    <li><a href="{% url 'scholarship_list' %}">Scholarships</a></li>
+                    <li><a href="{% url 'compare' %}">Compare Unis</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-2 col-md-4">
+                <h6 class="footer-heading">States</h6>
+                <ul class="footer-links">
+                    {% for state in all_states|slice:":6" %}
+                    <li><a href="{% url 'state_detail' slug=state.slug %}">{{ state.name }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="col-lg-2 col-md-4">
+                <h6 class="footer-heading">Information</h6>
+                <ul class="footer-links">
+                    <li><a href="{% url 'about' %}">About AusUni</a></li>
+                    <li><a href="{% url 'contact' %}">Contact Us</a></li>
+                    <li><a href="{% url 'privacy_policy' %}">Privacy Policy</a></li>
+                    <li><a href="{% url 'disclaimer' %}">Disclaimer</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-2 col-md-4">
+                <h6 class="footer-heading">University Groups</h6>
+                <ul class="footer-links">
+                    <li><a href="{% url 'university_list' %}?group=go8">Group of Eight (Go8)</a></li>
+                    <li><a href="{% url 'university_list' %}?group=atn">Tech Network (ATN)</a></li>
+                    <li><a href="{% url 'university_list' %}?type=tafe">TAFE Institutes</a></li>
+                    <li><a href="{% url 'university_list' %}?type=private_provider">Private Providers</a></li>
+                </ul>
+            </div>
+        </div>
+        <hr class="footer-divider">
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <p class="footer-copyright">© 2024 AusUni. All rights reserved. Not affiliated with any Australian university.</p>
+            </div>
+            <div class="col-md-6 text-md-end">
+                <small class="text-muted">Data sourced from official university websites. Last updated 2024.</small>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/static/js/main.js"></script>
+
+{% block extra_js %}{% endblock %}
+</body>
+</html>

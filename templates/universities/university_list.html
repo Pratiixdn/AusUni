@@ -1,0 +1,155 @@
+{% extends "base.html" %}
+{% block title %}All Australian Universities | AusUni{% endblock %}
+{% block meta_description %}Browse all Australian universities by state, type, and group affiliation. Find your perfect university in Australia.{% endblock %}
+
+{% block breadcrumb %}
+<div class="breadcrumb-bar">
+    <div class="container">
+        <nav aria-label="breadcrumb"><ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Home</a></li>
+            <li class="breadcrumb-item active">Universities</li>
+        </ol></nav>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="container section">
+
+    <!-- Page Header -->
+    <div class="mb-4">
+        <div class="section-label">All Institutions</div>
+        <h1 class="section-title">Australian Universities</h1>
+        <p style="color:var(--text-secondary);">Explore all universities, TAFE institutes, and private providers across Australia.</p>
+    </div>
+
+    <!-- Filters -->
+    <form method="get" class="filter-bar mb-4">
+        <div class="row g-2 align-items-end">
+            <div class="col-md-4">
+                <input type="text" name="q" class="form-control" placeholder="🔍 Search universities…" value="{{ search_q }}">
+            </div>
+            <div class="col-md-2">
+                <select name="state" class="form-select filter-auto-submit">
+                    <option value="">All States</option>
+                    {% for state in states %}
+                    <option value="{{ state.slug }}" {% if state_filter == state.slug %}selected{% endif %}>{{ state.abbreviation }} – {{ state.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-2">
+                <select name="type" class="form-select filter-auto-submit">
+                    <option value="">All Types</option>
+                    <option value="public" {% if type_filter == 'public' %}selected{% endif %}>Public University</option>
+                    <option value="private" {% if type_filter == 'private' %}selected{% endif %}>Private University</option>
+                    <option value="tafe" {% if type_filter == 'tafe' %}selected{% endif %}>TAFE Institute</option>
+                    <option value="private_provider" {% if type_filter == 'private_provider' %}selected{% endif %}>Private Provider</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <select name="group" class="form-select filter-auto-submit">
+                    <option value="">All Groups</option>
+                    <option value="go8" {% if group_filter == 'go8' %}selected{% endif %}>Group of Eight (Go8)</option>
+                    <option value="atn" {% if group_filter == 'atn' %}selected{% endif %}>Tech Network (ATN)</option>
+                    <option value="irua" {% if group_filter == 'irua' %}selected{% endif %}>IRU</option>
+                    <option value="none" {% if group_filter == 'none' %}selected{% endif %}>Independent</option>
+                </select>
+            </div>
+            <div class="col-md-2 d-flex gap-2">
+                <button type="submit" class="btn-primary-aus flex-1 justify-content-center">Filter</button>
+                {% if search_q or state_filter or type_filter or group_filter %}<a href="{% url 'university_list' %}" class="btn-outline-aus">Clear</a>{% endif %}
+            </div>
+        </div>
+    </form>
+
+    <!-- Results Bar -->
+    <div class="results-bar">
+        <div class="results-count">Showing <strong>{{ total_results }}</strong> universit{{ total_results|pluralize:"y,ies" }}</div>
+        <div class="d-flex gap-2 flex-wrap">
+            <a href="{% url 'university_list' %}?group=go8" class="badge-uni badge-go8" style="text-decoration:none;">⭐ Go8</a>
+            <a href="{% url 'university_list' %}?group=atn" class="badge-uni badge-atn" style="text-decoration:none;">ATN</a>
+            <a href="{% url 'university_list' %}?type=tafe" class="badge-uni badge-tafe" style="text-decoration:none;">TAFE</a>
+        </div>
+    </div>
+
+    <!-- University Grid -->
+    <div class="row g-3">
+        {% for uni in universities %}
+        <div class="col-md-6 col-lg-4">
+            <div class="card-uni">
+                <div class="d-flex align-items-start gap-3 mb-3">
+                    <div class="card-uni-logo">🏛️</div>
+                    <div class="flex-1 min-w-0">
+                        <h3 class="card-uni-name"><a href="{{ uni.get_absolute_url }}">{{ uni.name }}</a></h3>
+                        <div class="card-uni-meta mt-1">
+                            <i class="bi bi-geo-alt-fill"></i>
+                            {{ uni.city.name|default:"" }}{% if uni.city %}, {% endif %}{{ uni.state.abbreviation }}
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex gap-1 flex-wrap mb-3">
+                    <span class="badge-uni badge-{{ uni.institution_type }}">{{ uni.get_institution_type_display }}</span>
+                    {% if uni.is_go8 %}<span class="badge-uni badge-go8">⭐ Go8</span>{% endif %}
+                    {% if uni.group_affiliation == 'atn' %}<span class="badge-uni badge-atn">ATN</span>{% endif %}
+                    {% if uni.ranking_qs %}<span class="badge-uni" style="background:var(--accent-purple-light);color:var(--accent-purple);">QS {{ uni.ranking_qs }}</span>{% endif %}
+                </div>
+                <p style="font-size:0.82rem;color:var(--text-muted);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:1rem;">
+                    {{ uni.description }}
+                </p>
+                <div class="row g-1 mb-3">
+                    <div class="col-4"><div class="card-stat" style="background:var(--bg-secondary);border-radius:8px;">
+                        <strong>{{ uni.course_count }}</strong><small>Courses</small>
+                    </div></div>
+                    <div class="col-4"><div class="card-stat" style="background:var(--bg-secondary);border-radius:8px;">
+                        <strong>{{ uni.scholarship_count }}</strong><small>Scholarships</small>
+                    </div></div>
+                    <div class="col-4"><div class="card-stat" style="background:var(--bg-secondary);border-radius:8px;">
+                        <strong>{{ uni.established_year|default:"–" }}</strong><small>Est.</small>
+                    </div></div>
+                </div>
+                <div class="d-flex gap-2">
+                    <a href="{{ uni.get_absolute_url }}" class="btn-primary-aus flex-1 justify-content-center">View Details</a>
+                    <label style="cursor:pointer;display:flex;align-items:center;gap:0.3rem;font-size:0.72rem;color:var(--text-muted);padding:0 0.25rem;">
+                        <input type="checkbox" class="compare-checkbox" data-slug="{{ uni.slug }}" style="width:14px;height:14px;accent-color:var(--accent);">
+                        Compare
+                    </label>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12 text-center py-5">
+            <div style="font-size:3rem;margin-bottom:1rem;">🔍</div>
+            <h4>No universities found</h4>
+            <p style="color:var(--text-muted);">Try adjusting your filters or <a href="{% url 'university_list' %}">clear all filters</a>.</p>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Compare Bar (sticky bottom) -->
+    <div id="compareBar" class="d-none" style="position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%);background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:0.875rem 1.5rem;box-shadow:var(--shadow-lg);z-index:1000;display:flex !important;align-items:center;gap:1rem;">
+        <span style="font-family:var(--font-display);font-weight:600;font-size:0.875rem;"><span id="compareCount">0</span> selected</span>
+        <a id="compareBtn" href="{% url 'compare' %}" class="btn-primary-aus">Compare Now</a>
+    </div>
+
+    <!-- Pagination -->
+    {% if universities.has_other_pages %}
+    <div class="d-flex justify-content-center mt-4">
+        <nav>
+            <ul class="pagination">
+                {% if universities.has_previous %}
+                <li class="page-item"><a class="page-link" href="?page={{ universities.previous_page_number }}&q={{ search_q }}&state={{ state_filter }}&type={{ type_filter }}&group={{ group_filter }}">‹ Prev</a></li>
+                {% endif %}
+                {% for num in universities.paginator.page_range %}
+                <li class="page-item {% if num == universities.number %}active{% endif %}">
+                    <a class="page-link" href="?page={{ num }}&q={{ search_q }}&state={{ state_filter }}&type={{ type_filter }}&group={{ group_filter }}">{{ num }}</a>
+                </li>
+                {% endfor %}
+                {% if universities.has_next %}
+                <li class="page-item"><a class="page-link" href="?page={{ universities.next_page_number }}&q={{ search_q }}&state={{ state_filter }}&type={{ type_filter }}&group={{ group_filter }}">Next ›</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

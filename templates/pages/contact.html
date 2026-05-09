@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %}Contact AusUni{% endblock %}
+{% block content %}
+<div class="container" style="max-width:700px;padding-top:3rem;padding-bottom:3rem;">
+    <div class="section-label">Get in Touch</div>
+    <h1 class="section-title mb-4">Contact Us</h1>
+    <div class="sidebar-card">
+        <p style="color:var(--text-secondary);margin-bottom:1.5rem;">
+            Have a question, found incorrect information, or want to suggest a university to add?
+            We'd love to hear from you. Please note we are not affiliated with any university and cannot assist with visa or admission queries — please contact the university directly for those.
+        </p>
+        <div class="row g-3">
+            <div class="col-md-6">
+                <label style="font-size:0.82rem;font-weight:600;font-family:var(--font-display);color:var(--text-muted);margin-bottom:0.4rem;display:block;">Your Name</label>
+                <input type="text" class="form-control" placeholder="Your full name">
+            </div>
+            <div class="col-md-6">
+                <label style="font-size:0.82rem;font-weight:600;font-family:var(--font-display);color:var(--text-muted);margin-bottom:0.4rem;display:block;">Email Address</label>
+                <input type="email" class="form-control" placeholder="your@email.com">
+            </div>
+            <div class="col-12">
+                <label style="font-size:0.82rem;font-weight:600;font-family:var(--font-display);color:var(--text-muted);margin-bottom:0.4rem;display:block;">Subject</label>
+                <select class="form-select">
+                    <option>General Enquiry</option>
+                    <option>Incorrect Information</option>
+                    <option>Add a University</option>
+                    <option>Partnership / Advertising</option>
+                    <option>Other</option>
+                </select>
+            </div>
+            <div class="col-12">
+                <label style="font-size:0.82rem;font-weight:600;font-family:var(--font-display);color:var(--text-muted);margin-bottom:0.4rem;display:block;">Message</label>
+                <textarea class="form-control" rows="5" placeholder="Your message…" style="background:var(--bg-secondary);border:1px solid var(--border);color:var(--text-primary);border-radius:var(--radius-sm);resize:vertical;"></textarea>
+            </div>
+            <div class="col-12">
+                <button class="btn-primary-aus" onclick="alert('Thank you for your message. We will respond within 2–3 business days.')">
+                    <i class="bi bi-send me-2"></i>Send Message
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="sidebar-card mt-3" style="background:var(--accent-light);border:1px solid rgba(26,110,248,0.2);">
+        <p style="margin:0;font-size:0.82rem;color:var(--accent);">
+            <i class="bi bi-info-circle me-1"></i>
+            <strong>Please note:</strong> We are an independent information platform and cannot assist with university admissions, visa applications, or enrolment. Contact the university directly for such queries.
+        </p>
+    </div>
+</div>
+{% endblock %}

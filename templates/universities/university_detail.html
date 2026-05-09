@@ -1,0 +1,381 @@
+{% extends "base.html" %}
+{% load university_extras %}
+{% block title %}{{ university.name }} – Courses, Fees & Scholarships | AusUni{% endblock %}
+{% block meta_description %}{{ university.name }}: courses, tuition fees, scholarships, campuses, and admission requirements for international students.{% endblock %}
+
+{% block breadcrumb %}
+<div class="breadcrumb-bar">
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'state_detail' slug=university.state.slug %}">{{ university.state.name }}</a></li>
+                <li class="breadcrumb-item active">{{ university.name }}</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+
+<!-- ── University Hero ── -->
+<section class="uni-hero">
+    <div class="container">
+        <div class="row g-4 align-items-start">
+            <div class="col-lg-8">
+                <div class="d-flex align-items-start gap-4">
+                    <div class="uni-logo-large">🏛️</div>
+                    <div>
+                        <div class="d-flex gap-2 flex-wrap mb-2">
+                            <span class="badge-uni badge-{{ university.institution_type }}" style="background:rgba(255,255,255,0.15);color:white;">{{ university.get_institution_type_display }}</span>
+                            {% if university.is_go8 %}<span class="badge-uni badge-go8">⭐ Group of Eight</span>{% endif %}
+                            {% if university.group_affiliation == 'atn' %}<span class="badge-uni badge-atn" style="background:rgba(229,62,62,0.2);color:#ff8080;">ATN Member</span>{% endif %}
+                        </div>
+                        <h1 style="color:white;font-size:clamp(1.5rem,4vw,2.5rem);font-weight:800;letter-spacing:-0.02em;line-height:1.15;">{{ university.name }}</h1>
+                        <div class="d-flex align-items-center gap-3 mt-2 flex-wrap">
+                            {% if university.city %}<span style="color:rgba(255,255,255,0.75);font-size:0.875rem;"><i class="bi bi-geo-alt-fill me-1"></i>{{ university.city.name }}, {{ university.state.abbreviation }}</span>{% endif %}
+                            {% if university.established_year %}<span style="color:rgba(255,255,255,0.75);font-size:0.875rem;"><i class="bi bi-calendar3 me-1"></i>Est. {{ university.established_year }}</span>{% endif %}
+                        </div>
+                        {% if university.ranking_qs %}
+                        <div class="d-flex gap-2 mt-3 flex-wrap">
+                            <span class="uni-ranking-badge"><i class="bi bi-trophy-fill me-1"></i>QS {{ university.ranking_qs }}</span>
+                            {% if university.ranking_times %}<span class="uni-ranking-badge"><i class="bi bi-star-fill me-1"></i>THE {{ university.ranking_times }}</span>{% endif %}
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:12px;padding:1.25rem;backdrop-filter:blur(8px);">
+                    <div class="row g-3 text-center">
+                        <div class="col-4">
+                            <div style="font-family:var(--font-display);font-weight:800;font-size:1.4rem;color:white;">{{ courses|length }}</div>
+                            <div style="font-size:0.72rem;color:rgba(255,255,255,0.6);">Courses</div>
+                        </div>
+                        <div class="col-4">
+                            <div style="font-family:var(--font-display);font-weight:800;font-size:1.4rem;color:white;">{{ scholarships|length }}</div>
+                            <div style="font-size:0.72rem;color:rgba(255,255,255,0.6);">Scholarships</div>
+                        </div>
+                        <div class="col-4">
+                            <div style="font-family:var(--font-display);font-weight:800;font-size:1.4rem;color:white;">{{ campuses|length }}</div>
+                            <div style="font-size:0.72rem;color:rgba(255,255,255,0.6);">Campus{{ campuses|length|pluralize:"es" }}</div>
+                        </div>
+                    </div>
+                    <hr style="border-color:rgba(255,255,255,0.15);margin:1rem 0;">
+                    <div class="d-flex flex-column gap-2">
+                        <a href="{{ university.official_website }}" target="_blank" rel="noopener" class="btn btn-sm btn-light fw-semibold ext-link" style="border-radius:8px;font-family:var(--font-display);font-size:0.82rem;">
+                            <i class="bi bi-globe me-1"></i>Official Website
+                        </a>
+                        {% if university.international_page %}
+                        <a href="{{ university.international_page }}" target="_blank" rel="noopener" class="btn btn-sm ext-link" style="border-radius:8px;background:rgba(255,255,255,0.15);color:white;border:1px solid rgba(255,255,255,0.2);font-family:var(--font-display);font-size:0.82rem;">
+                            <i class="bi bi-people me-1"></i>International Students
+                        </a>
+                        {% endif %}
+                        <button class="btn-bookmark w-100 justify-content-center d-flex {% if is_bookmarked %}active{% endif %}"
+                                data-url="{% url 'toggle_bookmark' uni_slug=university.slug %}">
+                            <i class="bi bi-bookmark-heart{% if is_bookmarked %}-fill{% endif %} me-2"></i>
+                            {% if is_bookmarked %}Bookmarked{% else %}Save University{% endif %}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ── Quick Nav ── -->
+<div style="background:var(--bg-secondary);border-bottom:1px solid var(--border);position:sticky;top:62px;z-index:99;">
+    <div class="container">
+        <div class="d-flex gap-1 overflow-auto py-2" style="scrollbar-width:none;">
+            <a href="#overview" class="btn btn-sm" style="white-space:nowrap;border-radius:8px;font-family:var(--font-display);font-weight:600;font-size:0.8rem;color:var(--text-secondary);background:transparent;border:1px solid var(--border);">Overview</a>
+            <a href="#campuses" class="btn btn-sm" style="white-space:nowrap;border-radius:8px;font-family:var(--font-display);font-weight:600;font-size:0.8rem;color:var(--text-secondary);background:transparent;border:1px solid var(--border);">Campuses</a>
+            <a href="#courses" class="btn btn-sm" style="white-space:nowrap;border-radius:8px;font-family:var(--font-display);font-weight:600;font-size:0.8rem;color:var(--text-secondary);background:transparent;border:1px solid var(--border);">Courses</a>
+            <a href="#scholarships" class="btn btn-sm" style="white-space:nowrap;border-radius:8px;font-family:var(--font-display);font-weight:600;font-size:0.8rem;color:var(--text-secondary);background:transparent;border:1px solid var(--border);">Scholarships</a>
+            <a href="#costs" class="btn btn-sm" style="white-space:nowrap;border-radius:8px;font-family:var(--font-display);font-weight:600;font-size:0.8rem;color:var(--text-secondary);background:transparent;border:1px solid var(--border);">Living Costs</a>
+        </div>
+    </div>
+</div>
+
+<!-- ── Main Content ── -->
+<div class="container" style="padding-top:2rem;padding-bottom:3rem;">
+    <div class="row g-4">
+
+        <!-- Left Column -->
+        <div class="col-lg-8">
+
+            <!-- Overview -->
+            <section id="overview" class="mb-4">
+                <div class="sidebar-card">
+                    <h2 style="font-family:var(--font-display);font-weight:700;font-size:1.25rem;margin-bottom:1rem;">About {{ university.name }}</h2>
+                    <p>{{ university.description }}</p>
+                    {% if university.about %}
+                    <p class="mt-2">{{ university.about }}</p>
+                    {% endif %}
+
+                    <!-- Key Facts -->
+                    <div class="info-grid mt-3">
+                        {% if university.total_students %}
+                        <div class="info-item">
+                            <div class="info-item-label">Total Students</div>
+                            <div class="info-item-value"><i class="bi bi-people-fill text-accent me-1"></i>{{ university.total_students }}</div>
+                        </div>
+                        {% endif %}
+                        {% if university.international_students %}
+                        <div class="info-item">
+                            <div class="info-item-label">International</div>
+                            <div class="info-item-value"><i class="bi bi-globe text-accent me-1"></i>{{ university.international_students }}</div>
+                        </div>
+                        {% endif %}
+                        {% if university.established_year %}
+                        <div class="info-item">
+                            <div class="info-item-label">Established</div>
+                            <div class="info-item-value">{{ university.established_year }}</div>
+                        </div>
+                        {% endif %}
+                        {% if university.ranking_qs %}
+                        <div class="info-item">
+                            <div class="info-item-label">QS Ranking</div>
+                            <div class="info-item-value text-accent">{{ university.ranking_qs }}</div>
+                        </div>
+                        {% endif %}
+                        {% if university.cost_of_living %}
+                        <div class="info-item">
+                            <div class="info-item-label">Cost of Living</div>
+                            <div class="info-item-value">{{ university.cost_of_living }}</div>
+                        </div>
+                        {% endif %}
+                        {% if university.application_fee %}
+                        <div class="info-item">
+                            <div class="info-item-label">Application Fee</div>
+                            <div class="info-item-value">{{ university.application_fee }}</div>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </section>
+
+            <!-- Campuses -->
+            {% if campuses %}
+            <section id="campuses" class="mb-4">
+                <div class="sidebar-card">
+                    <h2 style="font-family:var(--font-display);font-weight:700;font-size:1.25rem;margin-bottom:1rem;">
+                        <i class="bi bi-pin-map-fill text-accent me-2"></i>Campuses
+                    </h2>
+                    <div class="row g-3">
+                        {% for campus in campuses %}
+                        <div class="col-md-6">
+                            <div style="background:var(--bg-secondary);border:1px solid var(--border);border-radius:10px;padding:1rem;height:100%;">
+                                <div class="d-flex align-items-center gap-2 mb-2">
+                                    <h6 style="font-family:var(--font-display);font-weight:700;font-size:0.9rem;margin:0;">{{ campus.name }}</h6>
+                                    {% if campus.is_main %}<span class="badge-uni badge-public" style="font-size:0.65rem;">Main</span>{% endif %}
+                                </div>
+                                {% if campus.city %}<p style="font-size:0.78rem;color:var(--text-muted);margin-bottom:0.5rem;"><i class="bi bi-geo-alt me-1"></i>{{ campus.city.name }}, {{ campus.state.abbreviation }}</p>{% endif %}
+                                {% if campus.address %}<p style="font-size:0.78rem;color:var(--text-muted);margin-bottom:0.5rem;">{{ campus.address }}</p>{% endif %}
+                                <p style="font-size:0.8rem;color:var(--text-secondary);margin-bottom:0.5rem;">{{ campus.description }}</p>
+                                {% if campus.facilities %}
+                                <div style="font-size:0.75rem;color:var(--text-muted);">
+                                    <strong>Facilities:</strong> {{ campus.facilities }}
+                                </div>
+                                {% endif %}
+                                {% if campus.map_url %}
+                                <a href="{{ campus.map_url }}" target="_blank" rel="noopener" class="btn btn-sm mt-2 ext-link" style="border-radius:6px;font-size:0.75rem;background:var(--accent-light);color:var(--accent);border:none;font-family:var(--font-display);font-weight:600;">
+                                    <i class="bi bi-map me-1"></i>View on Map
+                                </a>
+                                {% endif %}
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </section>
+            {% endif %}
+
+            <!-- Courses -->
+            {% if courses %}
+            <section id="courses" class="mb-4">
+                <div class="sidebar-card">
+                    <div class="d-flex align-items-center justify-content-between mb-3">
+                        <h2 style="font-family:var(--font-display);font-weight:700;font-size:1.25rem;margin:0;">
+                            <i class="bi bi-book-fill text-accent me-2"></i>Courses ({{ courses|length }})
+                        </h2>
+                    </div>
+
+                    <div class="accordion course-accordion" id="coursesAccordion">
+                        {% for level, level_courses in course_levels.items %}
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button {% if not forloop.first %}collapsed{% endif %}" type="button"
+                                        data-bs-toggle="collapse" data-bs-target="#level{{ forloop.counter }}">
+                                    <span class="course-level-badge me-2">{{ level }}</span>
+                                    {{ level_courses|length }} Course{{ level_courses|length|pluralize }}
+                                </button>
+                            </h2>
+                            <div id="level{{ forloop.counter }}" class="accordion-collapse collapse {% if forloop.first %}show{% endif %}" data-bs-parent="#coursesAccordion">
+                                <div class="accordion-body">
+                                    <div class="row g-3">
+                                        {% for course in level_courses %}
+                                        <div class="col-12">
+                                            <div class="card-course">
+                                                <div class="row g-2 align-items-start">
+                                                    <div class="col-md-7">
+                                                        <h6 style="font-family:var(--font-display);font-weight:700;font-size:0.9rem;margin-bottom:0.3rem;">
+                                                            <a href="{{ course.get_absolute_url }}">{{ course.name }}</a>
+                                                        </h6>
+                                                        {% if course.field_of_study %}<p style="font-size:0.75rem;color:var(--text-muted);margin-bottom:0.5rem;">{{ course.field_of_study }}</p>{% endif %}
+                                                        <div class="d-flex gap-2 flex-wrap">
+                                                            <span style="font-size:0.75rem;color:var(--text-secondary);"><i class="bi bi-clock me-1"></i>{{ course.duration }}</span>
+                                                            {% if course.intake_months %}<span class="intake-pill">{{ course.intake_months }}</span>{% endif %}
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-5">
+                                                        <div class="d-flex flex-column gap-1 text-md-end">
+                                                            {% if course.tuition_fee_annual %}
+                                                            <div class="course-fee">AUD {{ course.tuition_fee_annual|floatformat:0 }}/yr</div>
+                                                            {% endif %}
+                                                            <div class="d-flex gap-1 justify-content-md-end flex-wrap">
+                                                                {% if course.ielts_overall %}<span class="course-ielts">IELTS {{ course.ielts_overall }}</span>{% endif %}
+                                                                {% if course.pte_overall %}<span class="course-ielts">PTE {{ course.pte_overall }}</span>{% endif %}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    {% if course.academic_requirement %}
+                                                    <div class="col-12">
+                                                        <p style="font-size:0.75rem;color:var(--text-muted);margin:0.5rem 0 0.5rem;background:var(--bg-secondary);padding:0.5rem 0.75rem;border-radius:6px;">
+                                                            <strong>Requirements:</strong> {{ course.academic_requirement }}
+                                                        </p>
+                                                    </div>
+                                                    {% endif %}
+                                                    <div class="col-12">
+                                                        <div class="d-flex gap-2 mt-1">
+                                                            <a href="{{ course.get_absolute_url }}" class="btn-primary-aus" style="font-size:0.78rem;padding:0.35rem 0.875rem;">Details</a>
+                                                            <a href="{{ course.official_url }}" target="_blank" rel="noopener" class="btn-outline-aus ext-link" style="font-size:0.78rem;padding:0.3rem 0.875rem;">Official Page</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </section>
+            {% endif %}
+
+            <!-- Scholarships -->
+            {% if scholarships %}
+            <section id="scholarships" class="mb-4">
+                <div class="sidebar-card">
+                    <h2 style="font-family:var(--font-display);font-weight:700;font-size:1.25rem;margin-bottom:1rem;">
+                        <i class="bi bi-award-fill" style="color:var(--accent-gold);"></i> Scholarships ({{ scholarships|length }})
+                    </h2>
+                    <div class="d-flex flex-column gap-3">
+                        {% for schol in scholarships %}
+                        <div class="card-scholarship">
+                            <div class="row g-2 align-items-start">
+                                <div class="col-md-8">
+                                    <h6 style="font-family:var(--font-display);font-weight:700;font-size:0.9rem;margin-bottom:0.3rem;">{{ schol.name }}</h6>
+                                    <p style="font-size:0.8rem;color:var(--text-secondary);margin-bottom:0.5rem;">{{ schol.description }}</p>
+                                    <p style="font-size:0.78rem;color:var(--text-muted);margin-bottom:0.3rem;"><strong>Eligibility:</strong> {{ schol.eligibility }}</p>
+                                    {% if schol.deadline %}<p style="font-size:0.75rem;color:var(--text-muted);margin:0;"><i class="bi bi-calendar-event me-1"></i><strong>Deadline:</strong> {{ schol.deadline }}</p>{% endif %}
+                                    {% if schol.eligible_levels %}<p style="font-size:0.75rem;color:var(--text-muted);margin-top:0.25rem;"><strong>Eligible for:</strong> {{ schol.eligible_levels }}</p>{% endif %}
+                                </div>
+                                <div class="col-md-4 text-md-end">
+                                    <div class="scholarship-coverage">{{ schol.coverage }}</div>
+                                    <div class="mt-2">
+                                        <span class="badge-uni" style="background:var(--accent-gold-light);color:#92600a;">{{ schol.get_scholarship_type_display }}</span>
+                                    </div>
+                                    <a href="{{ schol.official_url }}" target="_blank" rel="noopener" class="btn-outline-aus ext-link mt-2 d-inline-flex" style="font-size:0.78rem;padding:0.3rem 0.875rem;">Apply</a>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </section>
+            {% endif %}
+
+            <!-- Internship / Industry -->
+            {% if university.internship_info %}
+            <section class="mb-4">
+                <div class="sidebar-card">
+                    <h2 style="font-family:var(--font-display);font-weight:700;font-size:1.25rem;margin-bottom:1rem;">
+                        <i class="bi bi-briefcase-fill text-accent me-2"></i>Industry &amp; Internships
+                    </h2>
+                    <p>{{ university.internship_info }}</p>
+                </div>
+            </section>
+            {% endif %}
+
+        </div>
+
+        <!-- Right Sidebar -->
+        <div class="col-lg-4">
+            <!-- Cost of Living -->
+            {% if university.cost_of_living %}
+            <div id="costs" class="sidebar-card">
+                <h6>💰 Cost of Living</h6>
+                <div style="font-family:var(--font-display);font-weight:700;font-size:1.25rem;color:var(--accent-green);">
+                    {{ university.cost_of_living }}
+                </div>
+                <p style="font-size:0.78rem;color:var(--text-muted);margin-top:0.5rem;margin-bottom:0;">
+                    Estimated monthly expenses in {{ university.city.name|default:"this city" }} including rent, food, transport, and personal expenses.
+                </p>
+            </div>
+            {% endif %}
+
+            <!-- Quick Links -->
+            <div class="sidebar-card">
+                <h6>🔗 Official Links</h6>
+                <div class="d-flex flex-column gap-2">
+                    <a href="{{ university.official_website }}" target="_blank" rel="noopener" class="btn-primary-aus justify-content-center ext-link">
+                        <i class="bi bi-globe me-1"></i>Official Website
+                    </a>
+                    {% if university.international_page %}
+                    <a href="{{ university.international_page }}" target="_blank" rel="noopener" class="btn-outline-aus justify-content-center ext-link">
+                        <i class="bi bi-people me-1"></i>International Info
+                    </a>
+                    {% endif %}
+                    {% if university.scholarship_page %}
+                    <a href="{{ university.scholarship_page }}" target="_blank" rel="noopener" class="btn-outline-aus justify-content-center ext-link">
+                        <i class="bi bi-award me-1"></i>Scholarships
+                    </a>
+                    {% endif %}
+                    {% if university.application_portal %}
+                    <a href="{{ university.application_portal }}" target="_blank" rel="noopener" class="btn-outline-aus justify-content-center ext-link">
+                        <i class="bi bi-pencil-square me-1"></i>Apply Now
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Popular Courses -->
+            {% if university.popular_courses %}
+            <div class="sidebar-card">
+                <h6>📚 Popular Courses</h6>
+                <div class="d-flex flex-wrap gap-2">
+                    {% for course_name in university.popular_courses|split:", " %}
+                    <span class="badge-uni badge-public" style="font-size:0.72rem;">{{ course_name }}</span>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+
+            <!-- Disclaimer -->
+            <div class="sidebar-card" style="border:1px solid rgba(245,166,35,0.3);background:var(--accent-gold-light);">
+                <p style="font-size:0.75rem;color:#92600a;margin:0;">
+                    <i class="bi bi-info-circle me-1"></i>
+                    <strong>Note:</strong> Tuition fees and requirements shown are indicative and may change.
+                    Always verify with the official {{ university.name }} website before applying.
+                </p>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

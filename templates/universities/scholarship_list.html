@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% block title %}Australian University Scholarships | AusUni{% endblock %}
+{% block content %}
+<div class="container section">
+    <div class="mb-4">
+        <div class="section-label">Financial Aid</div>
+        <h1 class="section-title">Scholarships for International Students</h1>
+        <p style="color:var(--text-secondary);">Find scholarships at Australian universities. Filter by state, type, and study level.</p>
+    </div>
+
+    <form method="get" class="filter-bar mb-4">
+        <div class="row g-2 align-items-end">
+            <div class="col-md-4"><input type="text" name="q" class="form-control" placeholder="🔍 Scholarship or university name…" value="{{ search_q }}"></div>
+            <div class="col-md-2">
+                <select name="state" class="form-select filter-auto-submit">
+                    <option value="">All States</option>
+                    {% for state in states %}<option value="{{ state.slug }}" {% if state_filter == state.slug %}selected{% endif %}>{{ state.abbreviation }}</option>{% endfor %}
+                </select>
+            </div>
+            <div class="col-md-2">
+                <select name="type" class="form-select filter-auto-submit">
+                    <option value="">All Types</option>
+                    <option value="merit">Merit-based</option>
+                    <option value="need">Need-based</option>
+                    <option value="full">Full Tuition</option>
+                    <option value="partial">Partial Tuition</option>
+                    <option value="government">Government</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <select name="level" class="form-select filter-auto-submit">
+                    <option value="">All Levels</option>
+                    <option value="Bachelor">Undergraduate</option>
+                    <option value="Master">Postgraduate</option>
+                    <option value="PhD">PhD</option>
+                </select>
+            </div>
+            <div class="col-md-2 d-flex gap-2">
+                <button type="submit" class="btn-primary-aus flex-1 justify-content-center">Filter</button>
+                {% if search_q or state_filter or type_filter or level_filter %}<a href="{% url 'scholarship_list' %}" class="btn-outline-aus">Clear</a>{% endif %}
+            </div>
+        </div>
+    </form>
+
+    <div class="results-bar">
+        <div class="results-count">Found <strong>{{ total_results }}</strong> scholarship{{ total_results|pluralize }}</div>
+    </div>
+
+    <div class="row g-3">
+        {% for schol in scholarships %}
+        <div class="col-md-6">
+            <div class="card-scholarship">
+                <div class="d-flex align-items-start justify-content-between gap-3">
+                    <div class="flex-1">
+                        <h5 style="font-family:var(--font-display);font-weight:700;font-size:0.95rem;margin-bottom:0.3rem;">{{ schol.name }}</h5>
+                        <p style="font-size:0.8rem;color:var(--accent);font-weight:500;margin-bottom:0.5rem;">{{ schol.university.name }}</p>
+                        <p style="font-size:0.8rem;color:var(--text-secondary);margin-bottom:0.5rem;">{{ schol.description }}</p>
+                        <p style="font-size:0.75rem;color:var(--text-muted);margin-bottom:0.25rem;"><strong>Eligibility:</strong> {{ schol.eligibility }}</p>
+                        {% if schol.academic_requirement %}<p style="font-size:0.75rem;color:var(--text-muted);margin-bottom:0.25rem;"><strong>Academic:</strong> {{ schol.academic_requirement }}</p>{% endif %}
+                        {% if schol.eligible_levels %}<p style="font-size:0.75rem;color:var(--text-muted);margin-bottom:0.25rem;"><strong>Level:</strong> {{ schol.eligible_levels }}</p>{% endif %}
+                        {% if schol.deadline %}<p style="font-size:0.75rem;color:var(--text-muted);margin-bottom:0.5rem;"><i class="bi bi-calendar-event me-1"></i><strong>Deadline:</strong> {{ schol.deadline }}</p>{% endif %}
+                        <div class="d-flex gap-2 mt-2">
+                            <a href="{{ schol.official_url }}" target="_blank" rel="noopener" class="btn-primary-aus ext-link" style="font-size:0.78rem;padding:0.35rem 0.875rem;">Apply / Details</a>
+                        </div>
+                    </div>
+                    <div class="text-end" style="min-width:110px;">
+                        <div class="scholarship-coverage">{{ schol.coverage }}</div>
+                        <span class="badge-uni" style="background:var(--accent-gold-light);color:#92600a;margin-top:0.5rem;display:inline-block;">{{ schol.get_scholarship_type_display }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12 text-center py-5">
+            <div style="font-size:3rem;">🏅</div>
+            <h4>No scholarships found</h4>
+            <p style="color:var(--text-muted);"><a href="{% url 'scholarship_list' %}">Clear all filters</a></p>
+        </div>
+        {% endfor %}
+    </div>
+
+    {% if scholarships.has_other_pages %}
+    <div class="d-flex justify-content-center mt-4">
+        <nav><ul class="pagination">
+            {% if scholarships.has_previous %}<li class="page-item"><a class="page-link" href="?page={{ scholarships.previous_page_number }}">‹</a></li>{% endif %}
+            {% for num in scholarships.paginator.page_range %}<li class="page-item {% if num == scholarships.number %}active{% endif %}"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>{% endfor %}
+            {% if scholarships.has_next %}<li class="page-item"><a class="page-link" href="?page={{ scholarships.next_page_number }}">›</a></li>{% endif %}
+        </ul></nav>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

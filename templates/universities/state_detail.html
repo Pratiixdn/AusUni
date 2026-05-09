@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block title %}{{ state.name }} Universities | AusUni{% endblock %}
+{% block content %}
+<section class="uni-hero">
+    <div class="container">
+        <div class="d-flex align-items-center gap-4">
+            <div style="width:70px;height:70px;background:var(--accent);border-radius:12px;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-weight:800;font-size:1.2rem;color:white;letter-spacing:0.05em;flex-shrink:0;">{{ state.abbreviation }}</div>
+            <div>
+                <div style="color:rgba(255,255,255,0.65);font-size:0.82rem;margin-bottom:0.25rem;">Explore Universities in</div>
+                <h1 style="color:white;font-size:clamp(1.5rem,4vw,2.25rem);font-weight:800;letter-spacing:-0.02em;margin-bottom:0.5rem;">{{ state.name }}</h1>
+                <div style="color:rgba(255,255,255,0.75);font-size:0.875rem;"><i class="bi bi-building me-1"></i>{{ universities|length }} Universit{{ universities|length|pluralize:"y,ies" }} &nbsp;|&nbsp; <i class="bi bi-geo-alt me-1"></i>Capital: {{ state.capital }}</div>
+            </div>
+        </div>
+        {% if state.description %}<p style="color:rgba(255,255,255,0.7);margin-top:1.5rem;max-width:700px;font-size:0.9rem;">{{ state.description }}</p>{% endif %}
+    </div>
+</section>
+
+<div class="container section">
+    <!-- Cities -->
+    {% if cities %}
+    <div class="mb-5">
+        <h2 style="font-family:var(--font-display);font-weight:700;font-size:1.15rem;margin-bottom:1rem;"><i class="bi bi-pin-map-fill text-accent me-2"></i>Cities in {{ state.abbreviation }}</h2>
+        <div class="d-flex gap-2 flex-wrap">
+            {% for city in cities %}
+            <a href="{% url 'city_detail' state_slug=state.slug city_slug=city.slug %}" style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-pill);padding:0.4rem 1rem;font-size:0.82rem;font-weight:600;font-family:var(--font-display);color:var(--text-secondary);transition:all 0.2s;text-decoration:none;" onmouseover="this.style.borderColor='var(--accent)';this.style.color='var(--accent)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text-secondary)'">
+                {{ city.name }} <span style="color:var(--accent);">({{ city.uni_count }})</span>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Filter -->
+    <div class="d-flex gap-2 mb-4 flex-wrap">
+        <a href="{% url 'state_detail' slug=state.slug %}" class="badge-uni {% if not type_filter %}badge-public{% else %}badge-public" style="background:var(--bg-secondary);color:var(--text-muted){% endif %}" style="text-decoration:none;padding:0.35rem 0.875rem;">All ({{ universities|length }})</a>
+        <a href="?type=public" class="badge-uni badge-public" style="text-decoration:none;padding:0.35rem 0.875rem;">Public Universities</a>
+        <a href="?type=tafe" class="badge-uni badge-tafe" style="text-decoration:none;padding:0.35rem 0.875rem;">TAFE</a>
+        <a href="?type=private_provider" class="badge-uni badge-private" style="text-decoration:none;padding:0.35rem 0.875rem;">Private</a>
+    </div>
+
+    <!-- Universities -->
+    <div class="row g-3">
+        {% for uni in universities %}
+        <div class="col-md-6 col-lg-4">
+            <div class="card-uni">
+                <div class="d-flex gap-3 align-items-start mb-3">
+                    <div class="card-uni-logo">🏛️</div>
+                    <div class="flex-1">
+                        <h3 class="card-uni-name"><a href="{{ uni.get_absolute_url }}">{{ uni.name }}</a></h3>
+                        <div class="card-uni-meta mt-1"><i class="bi bi-geo-alt-fill"></i>{{ uni.city.name|default:"" }}{% if uni.city %}, {% endif %}{{ state.abbreviation }}</div>
+                    </div>
+                </div>
+                <div class="d-flex gap-1 flex-wrap mb-3">
+                    <span class="badge-uni badge-{{ uni.institution_type }}">{{ uni.get_institution_type_display }}</span>
+                    {% if uni.is_go8 %}<span class="badge-uni badge-go8">⭐ Go8</span>{% endif %}
+                    {% if uni.ranking_qs %}<span class="badge-uni" style="background:var(--accent-purple-light);color:var(--accent-purple);">{{ uni.ranking_qs }}</span>{% endif %}
+                </div>
+                <div class="row g-1 mb-3">
+                    <div class="col-6"><div class="card-stat" style="background:var(--bg-secondary);border-radius:8px;"><strong>{{ uni.course_count }}</strong><small>Courses</small></div></div>
+                    <div class="col-6"><div class="card-stat" style="background:var(--bg-secondary);border-radius:8px;"><strong>{{ uni.scholarship_count }}</strong><small>Scholarships</small></div></div>
+                </div>
+                <a href="{{ uni.get_absolute_url }}" class="btn-primary-aus w-100 justify-content-center">View University</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
