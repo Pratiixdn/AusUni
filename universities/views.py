@@ -140,9 +140,9 @@ def university_detail(request, slug):
         course_levels[level].append(course)
 
     # Bookmark check
-if not request.session.session_key:
-    request.session.create()
-session_key = request.session.session_key
+    if not request.session.session_key:
+        request.session.create()
+    session_key = request.session.session_key
     is_bookmarked = Bookmark.objects.filter(
         session_key=session_key, university=university
     ).exists()
