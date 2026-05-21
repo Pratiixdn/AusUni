@@ -390,3 +390,9 @@ def contact(request):
 
 def disclaimer(request):
     return render(request, 'pages/disclaimer.html')
+
+def visa_guide(request):
+    return render(request, 'pages/visa_guide.html')
+
+def english_comparison(request):
+    return render(request, 'pages/english_comparison.html')

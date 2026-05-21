@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block title %}{{ post.title }} | AusUni Blog{% endblock %}
+{% block meta_description %}{{ post.meta_description }}{% endblock %}
+{% block content %}
+<div class="container" style="padding-top:2rem;padding-bottom:3rem;max-width:860px;">
+    <a href="/blog/" style="color:var(--accent);font-size:0.9rem;">← Back to Blog</a>
+    <h1 style="font-family:var(--font-display);font-weight:700;margin-top:1rem;margin-bottom:0.5rem;">{{ post.title }}</h1>
+    <p style="color:var(--text-muted);font-size:0.85rem;margin-bottom:2rem;">{{ post.created_at|date:"F j, Y" }}</p>
+    <div style="color:var(--text-secondary);line-height:1.9;font-size:1rem;">
+        {{ post.content|linebreaks }}
+    </div>
+
+    <!-- Ad Unit -->
+    <div style="margin-top:2rem;text-align:center;">
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-8936104184201511"
+             data-ad-slot="XXXXXXXXXX"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+</div>
+{% endblock %}

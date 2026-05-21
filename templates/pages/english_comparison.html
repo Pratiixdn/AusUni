@@ -1,0 +1,158 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}English Language Score Comparison | AusUni{% endblock %}
+{% block meta_description %}Compare English language proficiency requirements for Australian universities. See
+equivalent scores across IELTS Academic, PTE Academic, TOEFL iBT, and Cambridge C1 Advanced (CAE).{% endblock %}
+
+{% block content %}
+<div class="hero">
+    <div class="container text-center">
+        <h1 class="hero-title text-white mb-3">English Language Score Comparison</h1>
+        <p class="hero-subtitle mx-auto">Compare equivalent scores across IELTS, PTE, TOEFL, and Cambridge exams to
+            understand Australian university entry requirements.</p>
+    </div>
+</div>
+
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="content-box bg-white p-4 p-lg-5 rounded border shadow-sm">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">English Score Comparison</li>
+                    </ol>
+                </nav>
+
+                <hr class="my-4">
+
+                <h2 class="mb-4">Score Equivalency Table</h2>
+                <p>Use the table below to find the equivalent scores between the major English language proficiency
+                    tests accepted by Australian universities and the Department of Home Affairs.</p>
+
+                <div class="table-responsive mb-5">
+                    <table class="table table-bordered table-striped table-hover align-middle">
+                        <thead class="table-primary">
+                            <tr>
+                                <th scope="col">IELTS Academic</th>
+                                <th scope="col">PTE Academic</th>
+                                <th scope="col">TOEFL iBT</th>
+                                <th scope="col">Cambridge C1 Advanced (CAE)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>5.0</strong></td>
+                                <td>36</td>
+                                <td>32</td>
+                                <td>155</td>
+                            </tr>
+                            <tr>
+                                <td><strong>5.5</strong></td>
+                                <td>42</td>
+                                <td>46</td>
+                                <td>162</td>
+                            </tr>
+                            <tr>
+                                <td><strong>6.0</strong></td>
+                                <td>50</td>
+                                <td>60</td>
+                                <td>169</td>
+                            </tr>
+                            <tr>
+                                <td><strong>6.5</strong></td>
+                                <td>58</td>
+                                <td>79</td>
+                                <td>176</td>
+                            </tr>
+                            <tr>
+                                <td><strong>7.0</strong></td>
+                                <td>65</td>
+                                <td>94</td>
+                                <td>185</td>
+                            </tr>
+                            <tr>
+                                <td><strong>7.5</strong></td>
+                                <td>73</td>
+                                <td>102</td>
+                                <td>191</td>
+                            </tr>
+                            <tr>
+                                <td><strong>8.0</strong></td>
+                                <td>79</td>
+                                <td>110</td>
+                                <td>200</td>
+                            </tr>
+                            <tr>
+                                <td><strong>8.5</strong></td>
+                                <td>84</td>
+                                <td>115</td>
+                                <td>205</td>
+                            </tr>
+                            <tr>
+                                <td><strong>9.0</strong></td>
+                                <td>88</td>
+                                <td>118</td>
+                                <td>209</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h2 class="mb-4">Typical University Entry Requirements</h2>
+                <p>While specific requirements vary by university and course, the table below provides a general guide
+                    to the minimum English scores typically required for different levels of study in Australia.</p>
+
+                <div class="table-responsive mb-4">
+                    <table class="table table-bordered table-striped table-hover align-middle">
+                        <thead class="table-dark">
+                            <tr>
+                                <th scope="col">Overall Requirement</th>
+                                <th scope="col">IELTS Academic</th>
+                                <th scope="col">PTE Academic</th>
+                                <th scope="col">TOEFL iBT</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Basic Entry</strong> (Diplomas / Pathways)</td>
+                                <td>6.0 overall, no band below 5.5</td>
+                                <td>50 overall, no communicative skill below 42</td>
+                                <td>60 overall, R/L 12, S/W 18</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Standard Bachelor / Master</strong></td>
+                                <td>6.5 overall, no band below 6.0</td>
+                                <td>58 overall, no skill below 50</td>
+                                <td>79 overall, R 13, L 12, S 18, W 21</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Competitive Courses</strong> (Engineering, Law)</td>
+                                <td>7.0 overall, no band below 6.5</td>
+                                <td>65 overall, no skill below 58</td>
+                                <td>94 overall, R/L 24, S 23, W 27</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Nursing / Teaching / Health</strong></td>
+                                <td>7.0 overall, no band below 7.0</td>
+                                <td>65 overall, no skill below 65</td>
+                                <td>94 overall, minimum 24 in each section</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="alert alert-warning border-0 shadow-sm mt-5">
+                    <h4 class="alert-heading h5"><i class="bi bi-exclamation-triangle-fill me-2"></i>Important Note</h4>
+                    <p class="mb-0 text-sm">This equivalency table is intended as a guide. Universities have the right
+                        to set their own English language requirements which may differ from the table above. Always
+                        verify the exact English requirements on the official course page of your chosen university
+                        before applying.</p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

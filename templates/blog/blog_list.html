@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}Blog – Study in Australia | AusUni{% endblock %}
+{% block content %}
+<div class="container" style="padding-top:2rem;padding-bottom:3rem;">
+    <h1 style="font-family:var(--font-display);font-weight:700;margin-bottom:0.5rem;">AusUni Blog</h1>
+    <p style="color:var(--text-muted);margin-bottom:2rem;">Guides, tips and advice for international students planning to study in Australia.</p>
+    <div class="row g-4">
+        {% for post in posts %}
+        <div class="col-md-6 col-lg-4">
+            <div class="sidebar-card h-100">
+                <h2 style="font-size:1.1rem;font-weight:700;margin-bottom:0.5rem;">
+                    <a href="/blog/{{ post.slug }}/" style="color:var(--text-primary);text-decoration:none;">{{ post.title }}</a>
+                </h2>
+                <p style="color:var(--text-muted);font-size:0.85rem;margin-bottom:0.75rem;">{{ post.created_at|date:"F j, Y" }}</p>
+                <p style="color:var(--text-secondary);font-size:0.9rem;">{{ post.meta_description }}</p>
+                <a href="/blog/{{ post.slug }}/" style="color:var(--accent);font-weight:600;font-size:0.9rem;">Read more →</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

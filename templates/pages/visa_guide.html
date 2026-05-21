@@ -1,0 +1,138 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Australian Student Visa Process & Guide | AusUni{% endblock %}
+{% block meta_description %}A comprehensive step-by-step guide to the Australian Subclass 500 Student Visa. Learn about
+Assessment Levels (AL1, AL2, AL3) and document checklists.{% endblock %}
+
+{% block content %}
+<div class="hero">
+    <div class="container text-center">
+        <h1 class="hero-title text-white mb-3">Australian Student Visa (Subclass 500) Guide</h1>
+        <p class="hero-subtitle mx-auto">Complete step-by-step documentation checklist and process categorized by
+            Assessment Levels (AL1, AL2, and AL3).</p>
+    </div>
+</div>
+
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="content-box bg-white p-4 p-lg-5 rounded border shadow-sm">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Visa Guide</li>
+                    </ol>
+                </nav>
+
+                <hr class="my-4">
+
+                <h2 class="mb-4">1. Understanding the Process</h2>
+                <p>The Australian Student Visa (Subclass 500) allows you to live, work, and study in Australia for up to
+                    five years. The process generally involves:</p>
+                <ol class="mb-5">
+                    <li><strong>Apply to an Australian Educational Institution:</strong> Receive a Letter of Offer.</li>
+                    <li><strong>Accept your Offer:</strong> Pay tuition fees and receive an Electronic Confirmation of
+                        Enrolment (eCoE).</li>
+                    <li><strong>Gather Documents:</strong> Based on your Assessment Level (Country and Provider Risk).
+                    </li>
+                    <li><strong>Lodge Visa Application:</strong> Apply online via ImmiAccount.</li>
+                    <li><strong>Biometrics and Health Check:</strong> Complete examinations if requested.</li>
+                    <li><strong>Visa Decision:</strong> Wait for processing and receive your visa grant notice.</li>
+                </ol>
+
+                <h2 class="mb-4">2. Document Requirements by Priority Level</h2>
+                <p>Australia assesses visa risk based on a combined country and education provider rating. This defines
+                    whether you need to provide regular evidentiary documents (AL1) or more rigorous proof (AL2 & AL3).
+                </p>
+
+                <!-- AL 1 -->
+                <div class="card mb-4 border-0 shadow-sm">
+                    <div class="card-header bg-light border-0">
+                        <h3 class="h5 mb-0 text-primary"><i class="bi bi-check-circle-fill me-2"></i>Priority Level 1
+                            (Low Risk / Streamlined)</h3>
+                    </div>
+                    <div class="card-body bg-white border border-top-0 rounded-bottom">
+                        <p>Applicants from Low-Risk countries or those applying to highly-rated universities face a
+                            streamlined process. You must declare you have sufficient funds and English proficiency, but
+                            documentary evidence is usually not required upfront.</p>
+                        <ul>
+                            <li><strong>Identity Documents:</strong> Valid Passport, National ID, Birth Certificate.
+                            </li>
+                            <li><strong>eCoE:</strong> Electronic Confirmation of Enrolment from your university.</li>
+                            <li><strong>OSHC:</strong> Proof of Overseas Student Health Cover.</li>
+                            <li><strong>GTE Statement:</strong> Genuine Temporary Entrant statement explaining why you
+                                are studying in Australia.</li>
+                            <li><strong>Note:</strong> The Department of Home Affairs can still ask for financial or
+                                English proof during processing if they see fit.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- AL 2 -->
+                <div class="card mb-4 border-0 shadow-sm">
+                    <div class="card-header bg-light border-0">
+                        <h3 class="h5 mb-0 text-warning"><i class="bi bi-exclamation-circle-fill me-2"></i>Priority
+                            Level 2 (Medium Risk)</h3>
+                    </div>
+                    <div class="card-body bg-white border border-top-0 rounded-bottom">
+                        <p>Applicants falling under Level 2 must provide concrete evidence of English proficiency and
+                            sometimes financial capacity upfront.</p>
+                        <ul>
+                            <li><strong>All Level 1 Documents</strong></li>
+                            <li><strong>English Language Proficiency:</strong> Valid IELTS, PTE, or TOEFL scores meeting
+                                the minimum requirement (typically IELTS 5.5 to 6.5 depending on the course).</li>
+                            <li><strong>Financial Evidence (May be requested):</strong> Proof of funds to cover 12
+                                months of living costs (approx. AUD 24,505), tuition fees, and travel costs.</li>
+                            <li><strong>Academic Transcripts:</strong> Certified copies of your previous educational
+                                qualifications.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- AL 3 -->
+                <div class="card mb-5 border-0 shadow-sm">
+                    <div class="card-header bg-light border-0">
+                        <h3 class="h5 mb-0 text-danger"><i class="bi bi-shield-lock-fill me-2"></i>Priority Level 3
+                            (High Risk)</h3>
+                    </div>
+                    <div class="card-body bg-white border border-top-0 rounded-bottom">
+                        <p>Applicants from High-Risk countries must undergo a rigorous evidentiary process. Strict
+                            scrutiny is applied to financial documents, GTE, and academic history.</p>
+                        <ul>
+                            <li><strong>All Level 1 & 2 Documents</strong></li>
+                            <li><strong>Strict Financial Evidence (Mandatory):</strong>
+                                <ul>
+                                    <li>Bank statements covering the last 3-6 months.</li>
+                                    <li>Evidence of income of the person funding you (parents or spouse) showing an
+                                        annual income of at least AUD 72,465 (or AUD 84,543 if accompanied by family).
+                                    </li>
+                                    <li>Educational loans from approved financial institutions.</li>
+                                </ul>
+                            </li>
+                            <li><strong>Comprehensive GTE/GS (Genuine Student) Profile:</strong> Detailed evidence of
+                                ties to your home country (job offers, family, property) to prove you will return after
+                                studying.</li>
+                            <li><strong>Employment History:</strong> Resumes, payslips, and reference letters from
+                                previous employers to cover any study gaps.</li>
+                            <li><strong>Relationship Evidence:</strong> If bringing dependents, birth certificates and
+                                marriage certificates are strictly verified.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="alert alert-info border-0 shadow-sm">
+                    <h4 class="alert-heading h5"><i class="bi bi-info-circle-fill me-2"></i>Important Disclaimer</h4>
+                    <p class="mb-0 text-sm">Visa regulations and financial requirements are frequently updated by the
+                        Australian Department of Home Affairs. This guide is for informational purposes only. Always
+                        consult the official <a
+                            href="https://immi.homeaffairs.gov.au/visas/getting-a-visa/visa-listing/student-500"
+                            target="_blank" rel="noopener noreferrer">Department of Home Affairs website</a> or a
+                        registered MARA agent before lodging your application.</p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
