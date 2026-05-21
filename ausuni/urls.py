@@ -23,7 +23,7 @@ urlpatterns = [
     path('robots.txt', TemplateView.as_view(template_name='robots.txt', content_type='text/plain')),
     path('ads.txt', ads_txt),
     path('admin/', admin.site.urls),
-    path('', include('universities.urls')),
-    path('', include('universities.urls')),
+    path('', include('universities.urls')),  # removed duplicate
+    path('', include('blog.urls')),  # ← add this
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
