@@ -10,8 +10,7 @@ requirements for international students.{% endblock %}
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/">Home</a></li>
-                <li class="breadcrumb-item"><a href="{% url 'state_detail' slug=university.state.slug %}">{{
-                        university.state.name }}</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'state_detail' slug=university.state.slug %}">{{ university.state.name }}</a></li>
                 <li class="breadcrumb-item active">{{ university.name }}</li>
             </ol>
         </nav>
@@ -30,9 +29,7 @@ requirements for international students.{% endblock %}
                     <div class="uni-logo-large">🏛️</div>
                     <div>
                         <div class="d-flex gap-2 flex-wrap mb-2">
-                            <span class="badge-uni badge-{{ university.institution_type }}"
-                                style="background:rgba(255,255,255,0.15);color:white;">{{
-                                university.get_institution_type_display }}</span>
+                            <span class="badge-uni badge-{{ university.institution_type }}" style="background:rgba(255,255,255,0.15);color:white;">{{ university.get_institution_type_display }}</span>
                             {% if university.is_go8 %}<span class="badge-uni badge-go8">⭐ Group of Eight</span>{% endif %}
 
                             {% if university.group_affiliation == 'atn' %}<span class="badge-uni badge-atn"
@@ -42,17 +39,14 @@ requirements for international students.{% endblock %}
                             style="color:white;font-size:clamp(1.5rem,4vw,2.5rem);font-weight:800;letter-spacing:-0.02em;line-height:1.15;">
                             {{ university.name }}</h1>
                         <div class="d-flex align-items-center gap-3 mt-2 flex-wrap">
-                            {% if university.city %}<span style="color:rgba(255,255,255,0.75);font-size:0.875rem;"><i
-                                    class="bi bi-geo-alt-fill me-1"></i>{{ university.city.name }}, {{
-                                university.state.abbreviation }}</span>{% endif %}
+                            {% if university.city %}<span style="color:rgba(255,255,255,0.75);font-size:0.875rem;"><i class="bi bi-geo-alt-fill me-1"></i>{{ university.city.name }}, {{ university.state.abbreviation }}</span>{% endif %}
                             {% if university.established_year %}<span
                                 style="color:rgba(255,255,255,0.75);font-size:0.875rem;"><i
                                     class="bi bi-calendar3 me-1"></i>Est. {{ university.established_year }}</span>{% endif %}
                         </div>
                         {% if university.ranking_qs %}
                         <div class="d-flex gap-2 mt-3 flex-wrap">
-                            <span class="uni-ranking-badge"><i class="bi bi-trophy-fill me-1"></i>QS {{
-                                university.ranking_qs }}</span>
+                            <span class="uni-ranking-badge"><i class="bi bi-trophy-fill me-1"></i>QS {{ university.ranking_qs }}</span>
                             {% if university.ranking_times %}<span class="uni-ranking-badge"><i
                                     class="bi bi-star-fill me-1"></i>THE {{ university.ranking_times }}</span>{% endif %}
                         </div>
@@ -65,20 +59,16 @@ requirements for international students.{% endblock %}
                     style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:12px;padding:1.25rem;backdrop-filter:blur(8px);">
                     <div class="row g-3 text-center">
                         <div class="col-4">
-                            <div style="font-family:var(--font-display);font-weight:800;font-size:1.4rem;color:white;">
-                                {{ courses|length }}</div>
+                            <div style="font-family:var(--font-display);font-weight:800;font-size:1.4rem;color:white;">{{ courses|length }}</div>
                             <div style="font-size:0.72rem;color:rgba(255,255,255,0.6);">Courses</div>
                         </div>
                         <div class="col-4">
-                            <div style="font-family:var(--font-display);font-weight:800;font-size:1.4rem;color:white;">
-                                {{ scholarships|length }}</div>
+                            <div style="font-family:var(--font-display);font-weight:800;font-size:1.4rem;color:white;">{{ scholarships|length }}</div>
                             <div style="font-size:0.72rem;color:rgba(255,255,255,0.6);">Scholarships</div>
                         </div>
                         <div class="col-4">
-                            <div style="font-family:var(--font-display);font-weight:800;font-size:1.4rem;color:white;">
-                                {{ campuses|length }}</div>
-                            <div style="font-size:0.72rem;color:rgba(255,255,255,0.6);">Campus{{
-                                campuses|length|pluralize:"es" }}</div>
+                            <div style="font-family:var(--font-display);font-weight:800;font-size:1.4rem;color:white;">{{ campuses|length }}</div>
+                            <div style="font-size:0.72rem;color:rgba(255,255,255,0.6);">Campus{{ campuses|length|pluralize:"es" }}</div>
                         </div>
                     </div>
                     <hr style="border-color:rgba(255,255,255,0.15);margin:1rem 0;">
