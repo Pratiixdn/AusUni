@@ -518,9 +518,7 @@ requirements for international students.{% endblock %}
             <div class="sidebar-card">
                 <h6>📚 Popular Courses</h6>
                 <div class="d-flex flex-wrap gap-2">
-                    {% for course_name in university.popular_courses|split:", " %}
-                    <span class="badge-uni badge-public" style="font-size:0.72rem;">{{ course_name }}</span>
-                    {% endfor %}
+                   <p style="font-size:0.85rem;">{{ university.popular_courses }}</p>
                 </div>
             </div>
             {% endif %}
