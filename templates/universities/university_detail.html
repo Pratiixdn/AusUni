@@ -269,8 +269,7 @@ requirements for international students.{% endblock %}
                                 {% if campus.address %}<p
                                     style="font-size:0.78rem;color:var(--text-muted);margin-bottom:0.5rem;">{{
                                     campus.address }}</p>{% endif %}
-                                <p style="font-size:0.8rem;color:var(--text-secondary);margin-bottom:0.5rem;">{{
-                                    campus.description }}</p>
+                                {% if campus.description %}<p style="font-size:0.8rem;color:var(--text-secondary);margin-                                 bottom:0.5rem;">{{ campus.description }}</p>{% endif %}
                                 {% if campus.facilities %}
                                 <div style="font-size:0.75rem;color:var(--text-muted);">
                                     <strong>Facilities:</strong> {{ campus.facilities }}
