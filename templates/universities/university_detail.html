@@ -353,11 +353,11 @@
             </div>
 
             <!-- Popular Courses -->
-            {% if university.popular_courses %}
+            {% if popular_courses_list %}
             <div class="sidebar-card">
                 <h6>📚 Popular Courses</h6>
                 <div class="d-flex flex-wrap gap-2">
-                    {% for course_name in university.popular_courses.split:', ' %}
+                    {% for course_name in popular_courses_list %}
                     <span class="badge-uni badge-public" style="font-size:0.72rem;">{{ course_name }}</span>
                     {% endfor %}
                 </div>
