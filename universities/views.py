@@ -131,6 +131,11 @@ def university_detail(request, slug):
     courses = university.courses.order_by('level', 'name')
     scholarships = university.scholarships.order_by('-coverage_percentage', 'name')
 
+    # Parse popular courses into a list
+    popular_courses_list = []
+    if university.popular_courses:
+        popular_courses_list = [c.strip() for c in university.popular_courses.split(',')]
+
     # Group courses by level
     course_levels = {}
     for course in courses:
@@ -154,6 +159,7 @@ def university_detail(request, slug):
         'course_levels': course_levels,
         'scholarships': scholarships,
         'is_bookmarked': is_bookmarked,
+        'popular_courses_list': popular_courses_list,
     }
     return render(request, 'universities/university_detail.html', context)
 
