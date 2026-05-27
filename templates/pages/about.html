@@ -1,38 +1,135 @@
 {% extends "base.html" %}
-{% block title %}About AusUni – Australian University Guide{% endblock %}
+{% block title %}About AusUni – Australian University Guide for International Students{% endblock %}
+{% block meta_description %}Learn about AusUni — the independent guide helping international students find universities, courses, scholarships, and admission information across Australia.{% endblock %}
+
 {% block content %}
 <div class="container" style="max-width:860px;padding-top:3rem;padding-bottom:3rem;">
-    <div class="section-label">About Us</div>
-    <h1 class="section-title mb-4">About AusUni</h1>
 
-    <div class="sidebar-card mb-4">
-        <h2 style="font-family:var(--font-display);font-weight:700;font-size:1.2rem;margin-bottom:1rem;">What is AusUni?</h2>
-        <p>AusUni is an independent online guide dedicated to helping international students explore universities, courses, tuition fees, scholarships, and admission requirements across Australia. We believe that finding the right university should be transparent, accessible, and stress-free.</p>
-        <p>Our platform covers universities across all Australian states and territories — from world-ranked Group of Eight institutions like the University of Melbourne and UNSW Sydney, to emerging universities, TAFE institutes, and private providers.</p>
-    </div>
-
-    <div class="sidebar-card mb-4">
-        <h2 style="font-family:var(--font-display);font-weight:700;font-size:1.2rem;margin-bottom:1rem;">Our Mission</h2>
-        <p>To provide accurate, up-to-date, and freely accessible information about Australian higher education to international students worldwide. We aim to be the most comprehensive and honest guide available.</p>
-    </div>
-
-    <div class="sidebar-card mb-4">
-        <h2 style="font-family:var(--font-display);font-weight:700;font-size:1.2rem;margin-bottom:1rem;">Data Sources</h2>
-        <p>All data on AusUni is sourced from:</p>
-        <ul style="color:var(--text-secondary);line-height:2;">
-            <li>Official university websites</li>
-            <li>Australian Government's Study in Australia portal (studyaustralia.gov.au)</li>
-            <li>CRICOS (Commonwealth Register of Institutions and Courses for Overseas Students)</li>
-            <li>QS World University Rankings</li>
-            <li>Times Higher Education (THE) Rankings</li>
-        </ul>
-        <p class="mt-2"><strong>Note:</strong> Information may change. Always verify directly with universities before making decisions.</p>
-    </div>
-
-    <div class="sidebar-card" style="background:var(--accent-gold-light);border:1px solid rgba(245,166,35,0.3);">
-        <p style="color:#92600a;margin:0;font-size:0.875rem;">
-            <strong>Disclaimer:</strong> AusUni is not affiliated with, endorsed by, or connected to any Australian university, TAFE institute, or government body. We are an independent information platform. All trademarks belong to their respective owners.
+    <!-- Hero -->
+    <div class="sidebar-card mb-4" style="background:linear-gradient(135deg,var(--accent),#1a8ef8);color:white;border:none;">
+        <div class="d-flex align-items-center gap-3 mb-3">
+            <span style="font-size:3rem;">🎓</span>
+            <div>
+                <h1 style="color:white;font-family:var(--font-display);font-weight:800;font-size:2rem;margin:0;">About AusUni</h1>
+                <p style="color:rgba(255,255,255,0.85);margin:0;font-size:0.95rem;">Your independent guide to studying in Australia</p>
+            </div>
+        </div>
+        <p style="color:rgba(255,255,255,0.9);margin:0;line-height:1.8;">
+            AusUni was built for one reason: to make it easier for international students to find honest, clear, and detailed information about Australian universities — all in one place, completely free.
         </p>
     </div>
+
+    <!-- Our Story -->
+    <div class="sidebar-card mb-4">
+        <h2 style="font-family:var(--font-display);font-weight:700;font-size:1.2rem;margin-bottom:1rem;">
+            <i class="bi bi-book-half text-accent me-2"></i>Our Story
+        </h2>
+        <p>AusUni started with a simple frustration: finding reliable, up-to-date information about Australian universities as an international student is surprisingly hard. University websites are complex and difficult to compare. Tuition fees, English requirements, scholarship deadlines, and application processes are scattered across dozens of different pages and portals.</p>
+        <p>We built AusUni to solve that problem. Our goal was to create a single, easy-to-use platform where any student — whether in Nepal, India, the Philippines, Nigeria, or anywhere else in the world — could come to understand their options and make informed decisions about studying in Australia.</p>
+        <p>Today, AusUni covers over 40 Australian universities across all states and territories, with detailed information on courses, tuition fees, scholarships, campuses, English language requirements, and admission criteria.</p>
+    </div>
+
+    <!-- What We Cover -->
+    <div class="sidebar-card mb-4">
+        <h2 style="font-family:var(--font-display);font-weight:700;font-size:1.2rem;margin-bottom:1rem;">
+            <i class="bi bi-grid-fill text-accent me-2"></i>What AusUni Covers
+        </h2>
+        <div class="row g-3">
+            <div class="col-md-6">
+                <div style="background:var(--bg-secondary);border-radius:10px;padding:1rem;height:100%;">
+                    <h6 style="font-family:var(--font-display);font-weight:700;margin-bottom:0.5rem;">🏛️ Universities</h6>
+                    <p style="font-size:0.85rem;color:var(--text-secondary);margin:0;">Detailed profiles of 40+ Australian universities including Group of Eight, regional universities, TAFEs, and private providers.</p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div style="background:var(--bg-secondary);border-radius:10px;padding:1rem;height:100%;">
+                    <h6 style="font-family:var(--font-display);font-weight:700;margin-bottom:0.5rem;">📚 Courses</h6>
+                    <p style="font-size:0.85rem;color:var(--text-secondary);margin:0;">Hundreds of undergraduate and postgraduate courses with tuition fees, duration, intake dates, and English requirements.</p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div style="background:var(--bg-secondary);border-radius:10px;padding:1rem;height:100%;">
+                    <h6 style="font-family:var(--font-display);font-weight:700;margin-bottom:0.5rem;">🏆 Scholarships</h6>
+                    <p style="font-size:0.85rem;color:var(--text-secondary);margin:0;">Comprehensive listings of scholarships available to international students, including government and university-specific awards.</p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div style="background:var(--bg-secondary);border-radius:10px;padding:1rem;height:100%;">
+                    <h6 style="font-family:var(--font-display);font-weight:700;margin-bottom:0.5rem;">📋 Visa Guides</h6>
+                    <p style="font-size:0.85rem;color:var(--text-secondary);margin:0;">Step-by-step guidance on Australian student visa applications, requirements, and post-study work options.</p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div style="background:var(--bg-secondary);border-radius:10px;padding:1rem;height:100%;">
+                    <h6 style="font-family:var(--font-display);font-weight:700;margin-bottom:0.5rem;">📊 Compare Tool</h6>
+                    <p style="font-size:0.85rem;color:var(--text-secondary);margin:0;">Side-by-side university comparison tool to help you evaluate your options based on fees, rankings, and courses.</p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div style="background:var(--bg-secondary);border-radius:10px;padding:1rem;height:100%;">
+                    <h6 style="font-family:var(--font-display);font-weight:700;margin-bottom:0.5rem;">✍️ Blog & Guides</h6>
+                    <p style="font-size:0.85rem;color:var(--text-secondary);margin:0;">In-depth articles and guides on student life, cost of living, English tests, part-time work, and more.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Our Mission -->
+    <div class="sidebar-card mb-4">
+        <h2 style="font-family:var(--font-display);font-weight:700;font-size:1.2rem;margin-bottom:1rem;">
+            <i class="bi bi-bullseye text-accent me-2"></i>Our Mission
+        </h2>
+        <p>Our mission is simple: to give every international student — regardless of their background or resources — access to the same quality of information that students with expensive education consultants receive.</p>
+        <p>Studying abroad is one of the most important and expensive decisions a person can make. We believe that decision should be made with full, honest, and accurate information. Not with information that is incomplete, outdated, or filtered through the commercial interests of recruitment agencies.</p>
+        <p>AusUni is completely free to use. We do not charge students for access to any information on our platform. We are supported by advertising, which allows us to keep our service free for everyone.</p>
+    </div>
+
+    <!-- Who We Are -->
+    <div class="sidebar-card mb-4">
+        <h2 style="font-family:var(--font-display);font-weight:700;font-size:1.2rem;margin-bottom:1rem;">
+            <i class="bi bi-people-fill text-accent me-2"></i>Who We Are
+        </h2>
+        <p>AusUni is an independent platform run by a small team passionate about education and technology. We are not affiliated with any Australian university, government body, or education agency. We do not receive payment from universities to feature or promote their institutions.</p>
+        <p>Our team researches and updates university information regularly, drawing from official university websites, government education portals, and publicly available ranking data. We are committed to accuracy and update our data as often as possible to ensure students have access to the most current information available.</p>
+    </div>
+
+    <!-- Data Sources -->
+    <div class="sidebar-card mb-4">
+        <h2 style="font-family:var(--font-display);font-weight:700;font-size:1.2rem;margin-bottom:1rem;">
+            <i class="bi bi-database-fill text-accent me-2"></i>Our Data Sources
+        </h2>
+        <p>All information on AusUni is sourced from reputable, official sources including:</p>
+        <ul style="color:var(--text-secondary);line-height:2.2;">
+            <li>Official university websites and international student portals</li>
+            <li>Australian Government's Study in Australia portal (studyaustralia.gov.au)</li>
+            <li>CRICOS — Commonwealth Register of Institutions and Courses for Overseas Students</li>
+            <li>Australian Department of Home Affairs (visa information)</li>
+            <li>QS World University Rankings (qsrankings.com)</li>
+            <li>Times Higher Education World University Rankings</li>
+            <li>Australian Government's Quality Indicators for Learning and Teaching (QILT)</li>
+            <li>Australian Bureau of Statistics (cost of living data)</li>
+        </ul>
+        <p style="margin-top:0.5rem;"><strong>Important:</strong> Tuition fees, admission requirements, and scholarship details change regularly. Always verify information directly with the university before making any decisions.</p>
+    </div>
+
+    <!-- Contact CTA -->
+    <div class="sidebar-card mb-4" style="text-align:center;">
+        <h2 style="font-family:var(--font-display);font-weight:700;font-size:1.2rem;margin-bottom:0.75rem;">
+            Get in Touch
+        </h2>
+        <p style="color:var(--text-secondary);margin-bottom:1.5rem;">Have a question, found an error, or want to suggest a university or course we should add? We would love to hear from you.</p>
+        <a href="/contact/" class="btn-primary-aus" style="display:inline-flex;padding:0.75rem 2rem;font-size:1rem;">
+            <i class="bi bi-envelope-fill me-2"></i>Contact Us
+        </a>
+    </div>
+
+    <!-- Disclaimer -->
+    <div class="sidebar-card" style="background:var(--accent-gold-light);border:1px solid rgba(245,166,35,0.3);">
+        <p style="color:#92600a;margin:0;font-size:0.875rem;">
+            <i class="bi bi-info-circle me-1"></i>
+            <strong>Disclaimer:</strong> AusUni is not affiliated with, endorsed by, or connected to any Australian university, TAFE institute, or government body. We are an independent information platform. All trademarks and university names belong to their respective owners. Information on this site is provided for general guidance only and should not be relied upon as professional advice.
+        </p>
+    </div>
+
 </div>
 {% endblock %}
