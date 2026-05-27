@@ -26,47 +26,54 @@
                     Whether you've spotted a mistake, want to suggest a university we haven't listed yet, or just have a general question — we'd love to hear from you. We typically respond within 2–3 business days.
                 </p>
 
-                <div class="row g-3">
-                    <div class="col-md-6">
-                        <label style="font-size:0.82rem;font-weight:600;font-family:var(--font-display);color:var(--text-muted);margin-bottom:0.4rem;display:block;">Your Name</label>
-                        <input type="text" class="form-control" placeholder="e.g. Priya Sharma" id="contactName">
-                    </div>
-                    <div class="col-md-6">
-                        <label style="font-size:0.82rem;font-weight:600;font-family:var(--font-display);color:var(--text-muted);margin-bottom:0.4rem;display:block;">Email Address</label>
-                        <input type="email" class="form-control" placeholder="your@email.com" id="contactEmail">
-                    </div>
-                    <div class="col-12">
-                        <label style="font-size:0.82rem;font-weight:600;font-family:var(--font-display);color:var(--text-muted);margin-bottom:0.4rem;display:block;">What's this about?</label>
-                        <select class="form-select" id="contactSubject">
-                            <option value="">Select a topic...</option>
-                            <option>I found incorrect information</option>
-                            <option>Suggest a university to add</option>
-                            <option>Suggest a course or scholarship</option>
-                            <option>General question about the site</option>
-                            <option>Partnership or advertising enquiry</option>
-                            <option>Something else</option>
-                        </select>
-                    </div>
-                    <div class="col-12">
-                        <label style="font-size:0.82rem;font-weight:600;font-family:var(--font-display);color:var(--text-muted);margin-bottom:0.4rem;display:block;">Your Message</label>
-                        <textarea class="form-control" rows="5" id="contactMessage"
-                            placeholder="Tell us what's on your mind. The more detail you give us, the better we can help."
-                            style="background:var(--bg-secondary);border:1px solid var(--border);color:var(--text-primary);border-radius:var(--radius-sm);resize:vertical;"></textarea>
-                    </div>
-                    <div class="col-12">
-                        <button class="btn-primary-aus" id="contactSubmitBtn" onclick="handleContactSubmit()">
-                            <i class="bi bi-send me-2"></i>Send Message
-                        </button>
-                    </div>
+                <form action="https://formspree.io/f/xzdwkopd" method="POST" id="contactForm">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label style="font-size:0.82rem;font-weight:600;font-family:var(--font-display);color:var(--text-muted);margin-bottom:0.4rem;display:block;">Your Name</label>
+                            <input type="text" name="name" class="form-control" placeholder="e.g. Priya Sharma" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label style="font-size:0.82rem;font-weight:600;font-family:var(--font-display);color:var(--text-muted);margin-bottom:0.4rem;display:block;">Email Address</label>
+                            <input type="email" name="email" class="form-control" placeholder="your@email.com" required>
+                        </div>
+                        <div class="col-12">
+                            <label style="font-size:0.82rem;font-weight:600;font-family:var(--font-display);color:var(--text-muted);margin-bottom:0.4rem;display:block;">What's this about?</label>
+                            <select name="subject" class="form-select" required>
+                                <option value="">Select a topic...</option>
+                                <option>I found incorrect information</option>
+                                <option>Suggest a university to add</option>
+                                <option>Suggest a course or scholarship</option>
+                                <option>General question about the site</option>
+                                <option>Partnership or advertising enquiry</option>
+                                <option>Something else</option>
+                            </select>
+                        </div>
+                        <div class="col-12">
+                            <label style="font-size:0.82rem;font-weight:600;font-family:var(--font-display);color:var(--text-muted);margin-bottom:0.4rem;display:block;">Your Message</label>
+                            <textarea name="message" class="form-control" rows="5"
+                                placeholder="Tell us what's on your mind. The more detail you give us, the better we can help."
+                                style="background:var(--bg-secondary);border:1px solid var(--border);color:var(--text-primary);border-radius:var(--radius-sm);resize:vertical;"
+                                required></textarea>
+                        </div>
 
-                    <!-- Success message (hidden by default) -->
-                    <div class="col-12" id="contactSuccess" style="display:none;">
-                        <div style="background:#d1fae5;border:1px solid #6ee7b7;border-radius:10px;padding:1rem;color:#065f46;">
-                            <i class="bi bi-check-circle-fill me-2"></i>
-                            <strong>Message sent!</strong> Thank you for reaching out. We'll get back to you within 2–3 business days.
+                        <!-- Honeypot spam filter -->
+                        <input type="text" name="_gotcha" style="display:none">
+
+                        <div class="col-12">
+                            <button type="submit" class="btn-primary-aus">
+                                <i class="bi bi-send me-2"></i>Send Message
+                            </button>
+                        </div>
+
+                        <!-- Success message -->
+                        <div class="col-12" id="contactSuccess" style="display:none;">
+                            <div style="background:#d1fae5;border:1px solid #6ee7b7;border-radius:10px;padding:1rem;color:#065f46;">
+                                <i class="bi bi-check-circle-fill me-2"></i>
+                                <strong>Message sent!</strong> Thank you for reaching out. We'll get back to you within 2–3 business days.
+                            </div>
                         </div>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
 
@@ -135,27 +142,11 @@
 </div>
 
 <script>
-function handleContactSubmit() {
-    const name = document.getElementById('contactName').value.trim();
-    const email = document.getElementById('contactEmail').value.trim();
-    const subject = document.getElementById('contactSubject').value;
-    const message = document.getElementById('contactMessage').value.trim();
-
-    if (!name || !email || !subject || !message) {
-        alert('Please fill in all fields before sending.');
-        return;
+    // Show success message after Formspree redirect
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('success') === 'true') {
+        document.getElementById('contactSuccess').style.display = 'block';
     }
-
-    // Show success message
-    document.getElementById('contactSuccess').style.display = 'block';
-    document.getElementById('contactSubmitBtn').style.display = 'none';
-
-    // Clear form
-    document.getElementById('contactName').value = '';
-    document.getElementById('contactEmail').value = '';
-    document.getElementById('contactSubject').value = '';
-    document.getElementById('contactMessage').value = '';
-}
 </script>
 
 {% endblock %}
