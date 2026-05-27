@@ -402,6 +402,9 @@ def visa_guide(request):
 
 def english_comparison(request):
     return render(request, 'pages/english_comparison.html')
-
+    
 def faq(request):
     return render(request, 'pages/faq.html')
+
+def terms(request):
+    return render(request, 'pages/terms.html')
