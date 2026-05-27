@@ -1,0 +1,438 @@
+{% extends "base.html" %}
+{% block title %}Frequently Asked Questions – AusUni{% endblock %}
+{% block meta_description %}Answers to the most common questions about studying in Australia — universities, tuition fees, visas, scholarships, English requirements, and more.{% endblock %}
+
+{% block content %}
+<div class="container" style="max-width:860px;padding-top:3rem;padding-bottom:3rem;">
+
+    <!-- Hero -->
+    <div class="sidebar-card mb-4" style="background:linear-gradient(135deg,var(--accent),#1a8ef8);color:white;border:none;">
+        <div class="d-flex align-items-center gap-3">
+            <span style="font-size:3rem;">❓</span>
+            <div>
+                <h1 style="color:white;font-family:var(--font-display);font-weight:800;font-size:2rem;margin:0;">Frequently Asked Questions</h1>
+                <p style="color:rgba(255,255,255,0.85);margin:0;font-size:0.95rem;">Everything you need to know about studying in Australia</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Nav -->
+    <div class="sidebar-card mb-4">
+        <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:0.75rem;font-weight:600;">Jump to a section:</p>
+        <div class="d-flex flex-wrap gap-2">
+            <a href="#general" style="font-size:0.82rem;background:var(--accent-light);color:var(--accent);padding:0.35rem 0.75rem;border-radius:20px;text-decoration:none;font-weight:600;">General</a>
+            <a href="#admission" style="font-size:0.82rem;background:var(--accent-light);color:var(--accent);padding:0.35rem 0.75rem;border-radius:20px;text-decoration:none;font-weight:600;">Admission</a>
+            <a href="#fees" style="font-size:0.82rem;background:var(--accent-light);color:var(--accent);padding:0.35rem 0.75rem;border-radius:20px;text-decoration:none;font-weight:600;">Fees & Costs</a>
+            <a href="#visa" style="font-size:0.82rem;background:var(--accent-light);color:var(--accent);padding:0.35rem 0.75rem;border-radius:20px;text-decoration:none;font-weight:600;">Visa</a>
+            <a href="#english" style="font-size:0.82rem;background:var(--accent-light);color:var(--accent);padding:0.35rem 0.75rem;border-radius:20px;text-decoration:none;font-weight:600;">English Requirements</a>
+            <a href="#scholarships" style="font-size:0.82rem;background:var(--accent-light);color:var(--accent);padding:0.35rem 0.75rem;border-radius:20px;text-decoration:none;font-weight:600;">Scholarships</a>
+            <a href="#work" style="font-size:0.82rem;background:var(--accent-light);color:var(--accent);padding:0.35rem 0.75rem;border-radius:20px;text-decoration:none;font-weight:600;">Work Rights</a>
+            <a href="#life" style="font-size:0.82rem;background:var(--accent-light);color:var(--accent);padding:0.35rem 0.75rem;border-radius:20px;text-decoration:none;font-weight:600;">Student Life</a>
+        </div>
+    </div>
+
+    <!-- General -->
+    <div id="general" class="sidebar-card mb-4">
+        <h2 style="font-family:var(--font-display);font-weight:700;font-size:1.2rem;margin-bottom:1.25rem;">
+            <i class="bi bi-globe text-accent me-2"></i>General Questions
+        </h2>
+        <div class="accordion" id="generalAccordion">
+
+            <div class="accordion-item">
+                <h3 class="accordion-header">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#g1">
+                        Why should I study in Australia?
+                    </button>
+                </h3>
+                <div id="g1" class="accordion-collapse collapse show" data-bs-parent="#generalAccordion">
+                    <div class="accordion-body" style="color:var(--text-secondary);font-size:0.9rem;line-height:1.9;">
+                        Australia is one of the world's top study destinations for several excellent reasons. It has world-class universities, with eight institutions in the global top 100. The country offers generous work rights during and after study, a safe and multicultural environment, a strong and diverse economy with good graduate employment prospects, and one of the most beautiful natural environments on earth. For international students, Australia also offers one of the most generous post-study work visa programmes in the world, allowing graduates to stay and work for two to six years after completing their degree.
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <h3 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#g2">
+                        What is AusUni and how can it help me?
+                    </button>
+                </h3>
+                <div id="g2" class="accordion-collapse collapse" data-bs-parent="#generalAccordion">
+                    <div class="accordion-body" style="color:var(--text-secondary);font-size:0.9rem;line-height:1.9;">
+                        AusUni is a free, independent online guide for international students who want to study in Australia. We bring together information about 40+ Australian universities — including courses, tuition fees, scholarships, campus details, English requirements, and admission criteria — all in one easy-to-use platform. We are not affiliated with any university or government body, so the information we provide is unbiased and straightforward.
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <h3 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#g3">
+                        Which is the best university in Australia?
+                    </button>
+                </h3>
+                <div id="g3" class="accordion-collapse collapse" data-bs-parent="#generalAccordion">
+                    <div class="accordion-body" style="color:var(--text-secondary);font-size:0.9rem;line-height:1.9;">
+                        There is no single "best" university — it depends entirely on your field of study, budget, preferred location, and career goals. The Group of Eight universities (University of Melbourne, ANU, University of Sydney, UNSW, University of Queensland, Monash, University of Western Australia, and University of Adelaide) are consistently ranked among the world's best. However, many non-Go8 universities have outstanding programmes in specific fields. We recommend using our Compare tool to evaluate universities based on what matters most to you.
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <h3 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#g4">
+                        What is the Group of Eight (Go8)?
+                    </button>
+                </h3>
+                <div id="g4" class="accordion-collapse collapse" data-bs-parent="#generalAccordion">
+                    <div class="accordion-body" style="color:var(--text-secondary);font-size:0.9rem;line-height:1.9;">
+                        The Group of Eight is a coalition of Australia's eight leading research-intensive universities. These are the University of Melbourne, Australian National University, University of Sydney, UNSW Sydney, University of Queensland, Monash University, University of Western Australia, and University of Adelaide. Go8 universities are consistently ranked in the world's top 200 and are particularly strong in research, postgraduate education, and industry connections. They tend to have higher tuition fees and more competitive admission requirements than other Australian universities.
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Admission -->
+    <div id="admission" class="sidebar-card mb-4">
+        <h2 style="font-family:var(--font-display);font-weight:700;font-size:1.2rem;margin-bottom:1.25rem;">
+            <i class="bi bi-pencil-square text-accent me-2"></i>Admission Questions
+        </h2>
+        <div class="accordion" id="admissionAccordion">
+
+            <div class="accordion-item">
+                <h3 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#a1">
+                        How do I apply to an Australian university?
+                    </button>
+                </h3>
+                <div id="a1" class="accordion-collapse collapse" data-bs-parent="#admissionAccordion">
+                    <div class="accordion-body" style="color:var(--text-secondary);font-size:0.9rem;line-height:1.9;">
+                        Most Australian universities accept direct applications through their own online application portals — there is no central application system. You can apply to multiple universities simultaneously. You will need to submit your academic transcripts, English language test results, a copy of your passport, and sometimes a personal statement. Once accepted, you will receive a Letter of Offer, and after paying the tuition deposit, a Confirmation of Enrolment (CoE) which you use to apply for your student visa.
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <h3 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#a2">
+                        What academic qualifications do I need?
+                    </button>
+                </h3>
+                <div id="a2" class="accordion-collapse collapse" data-bs-parent="#admissionAccordion">
+                    <div class="accordion-body" style="color:var(--text-secondary);font-size:0.9rem;line-height:1.9;">
+                        For undergraduate programmes, you typically need completion of secondary school (Year 12 or equivalent) with competitive grades. For Nepali students, this means your plus two results. For postgraduate programmes, you need a completed bachelor's degree in a relevant field, usually with a minimum GPA equivalent to an Australian credit average (around 60-65%). Specific requirements vary by university and course — always check directly with the university for their exact entry criteria.
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <h3 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#a3">
+                        When are the intake dates for Australian universities?
+                    </button>
+                </h3>
+                <div id="a3" class="accordion-collapse collapse" data-bs-parent="#admissionAccordion">
+                    <div class="accordion-body" style="color:var(--text-secondary);font-size:0.9rem;line-height:1.9;">
+                        Most Australian universities have two main intake periods — February (Semester 1) and July (Semester 2). Some universities, particularly private providers and some postgraduate programmes, also offer a third intake in September or October. February is the main intake with the most course options available. Applications should be submitted at least three to six months before your intended start date to allow time for processing and visa applications.
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <h3 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#a4">
+                        What if my grades don't meet the entry requirements?
+                    </button>
+                </h3>
+                <div id="a4" class="accordion-collapse collapse" data-bs-parent="#admissionAccordion">
+                    <div class="accordion-body" style="color:var(--text-secondary);font-size:0.9rem;line-height:1.9;">
+                        If your academic results don't meet direct entry requirements, many Australian universities offer pathway programmes. These include foundation courses (typically one year for students coming from secondary school) and diploma programmes (typically one year for students wanting to enter second year of a bachelor's degree). These pathways are a legitimate and well-recognised route into Australian universities and are chosen by thousands of international students every year.
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Fees -->
+    <div id="fees" class="sidebar-card mb-4">
+        <h2 style="font-family:var(--font-display);font-weight:700;font-size:1.2rem;margin-bottom:1.25rem;">
+            <i class="bi bi-cash-stack text-accent me-2"></i>Fees & Costs
+        </h2>
+        <div class="accordion" id="feesAccordion">
+
+            <div class="accordion-item">
+                <h3 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#f1">
+                        How much does it cost to study in Australia?
+                    </button>
+                </h3>
+                <div id="f1" class="accordion-collapse collapse" data-bs-parent="#feesAccordion">
+                    <div class="accordion-body" style="color:var(--text-secondary);font-size:0.9rem;line-height:1.9;">
+                        Tuition fees for international students typically range from AUD 20,000 to AUD 50,000 per year depending on the university and course. Medicine and veterinary science are the most expensive, often exceeding AUD 60,000 per year. Business, arts, and education courses are generally more affordable. In addition to tuition, you will need to budget for living costs of approximately AUD 1,500 to AUD 2,500 per month depending on the city.
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <h3 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#f2">
+                        Which city is the most affordable for students?
+                    </button>
+                </h3>
+                <div id="f2" class="accordion-collapse collapse" data-bs-parent="#feesAccordion">
+                    <div class="accordion-body" style="color:var(--text-secondary);font-size:0.9rem;line-height:1.9;">
+                        Adelaide is generally considered the most affordable major city for international students in Australia. Perth and Brisbane are also more affordable than Sydney and Melbourne. Sydney is the most expensive city. Regional areas are even more affordable than major cities and come with additional financial benefits including regional scholarships and longer post-study work visas.
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <h3 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#f3">
+                        Are there affordable universities in Australia?
+                    </button>
+                </h3>
+                <div id="f3" class="accordion-collapse collapse" data-bs-parent="#feesAccordion">
+                    <div class="accordion-body" style="color:var(--text-secondary);font-size:0.9rem;line-height:1.9;">
+                        Yes. Several Australian universities offer quality education at lower tuition fees. Universities like Federation University, University of Southern Queensland, Charles Sturt University, CQUniversity, and University of New England offer undergraduate fees starting from around AUD 20,000 to AUD 26,000 per year. These universities are fully accredited and recognised and offer strong programmes in many fields.
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Visa -->
+    <div id="visa" class="sidebar-card mb-4">
+        <h2 style="font-family:var(--font-display);font-weight:700;font-size:1.2rem;margin-bottom:1.25rem;">
+            <i class="bi bi-file-earmark-text text-accent me-2"></i>Visa Questions
+        </h2>
+        <div class="accordion" id="visaAccordion">
+
+            <div class="accordion-item">
+                <h3 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#v1">
+                        What visa do I need to study in Australia?
+                    </button>
+                </h3>
+                <div id="v1" class="accordion-collapse collapse" data-bs-parent="#visaAccordion">
+                    <div class="accordion-body" style="color:var(--text-secondary);font-size:0.9rem;line-height:1.9;">
+                        You need the Student visa (subclass 500) to study full-time in Australia. This visa allows you to study at a registered Australian education provider, work part-time during your studies, and bring eligible family members with you. You must apply online through the Australian Department of Home Affairs website after receiving your Confirmation of Enrolment (CoE) from your university.
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <h3 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#v2">
+                        How long does the student visa take to process?
+                    </button>
+                </h3>
+                <div id="v2" class="accordion-collapse collapse" data-bs-parent="#visaAccordion">
+                    <div class="accordion-body" style="color:var(--text-secondary);font-size:0.9rem;line-height:1.9;">
+                        Student visa processing times vary depending on your country of citizenship and the completeness of your application. Most applications are processed within four to eight weeks. However, during peak periods (typically June to September) processing can take longer. It is strongly recommended to apply at least three months before your intended travel date. Make sure your application is complete and your GTE statement is well-written to avoid delays.
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <h3 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#v3">
+                        What is the Genuine Temporary Entrant (GTE) requirement?
+                    </button>
+                </h3>
+                <div id="v3" class="accordion-collapse collapse" data-bs-parent="#visaAccordion">
+                    <div class="accordion-body" style="color:var(--text-secondary);font-size:0.9rem;line-height:1.9;">
+                        The GTE requirement means you must demonstrate that you are coming to Australia primarily to study and that you intend to return home after completing your studies. You need to write a GTE statement explaining your study plans, why you chose Australia and your specific university, how the qualification will benefit your career, and your ties to your home country. A weak or vague GTE statement is one of the most common reasons for student visa refusals.
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <h3 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#v4">
+                        Can I stay in Australia after finishing my degree?
+                    </button>
+                </h3>
+                <div id="v4" class="accordion-collapse collapse" data-bs-parent="#visaAccordion">
+                    <div class="accordion-body" style="color:var(--text-secondary);font-size:0.9rem;line-height:1.9;">
+                        Yes. Australia offers the Temporary Graduate visa (subclass 485) which allows international graduates to live and work in Australia for two to six years after completing their degree. The duration depends on your qualification level — bachelor's graduates get two years, masters by research graduates get four years, and PhD graduates get four years. Students who studied in regional areas may be eligible for an additional year.
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- English -->
+    <div id="english" class="sidebar-card mb-4">
+        <h2 style="font-family:var(--font-display);font-weight:700;font-size:1.2rem;margin-bottom:1.25rem;">
+            <i class="bi bi-translate text-accent me-2"></i>English Requirements
+        </h2>
+        <div class="accordion" id="englishAccordion">
+
+            <div class="accordion-item">
+                <h3 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#e1">
+                        What English test do I need for Australian universities?
+                    </button>
+                </h3>
+                <div id="e1" class="accordion-collapse collapse" data-bs-parent="#englishAccordion">
+                    <div class="accordion-body" style="color:var(--text-secondary);font-size:0.9rem;line-height:1.9;">
+                        Most Australian universities accept IELTS Academic, PTE Academic, and TOEFL iBT. IELTS and PTE are the most commonly used. The minimum score required depends on the university and course — most undergraduate programmes require IELTS 6.5 overall with no band below 6.0, while postgraduate programmes typically require 6.5 to 7.0. Health, education, and law programmes often have higher requirements.
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <h3 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#e2">
+                        Is IELTS or PTE better for Australia?
+                    </button>
+                </h3>
+                <div id="e2" class="accordion-collapse collapse" data-bs-parent="#englishAccordion">
+                    <div class="accordion-body" style="color:var(--text-secondary);font-size:0.9rem;line-height:1.9;">
+                        Both IELTS and PTE are equally accepted by Australian universities and by the Department of Home Affairs for visa applications. PTE Academic is fully computer-based and results are available within 48 hours, making it popular among students with tight deadlines. IELTS has a face-to-face speaking component which some students prefer. Many students in Nepal find PTE slightly more predictable with targeted preparation. The best choice is whichever test you are most confident in.
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Scholarships -->
+    <div id="scholarships" class="sidebar-card mb-4">
+        <h2 style="font-family:var(--font-display);font-weight:700;font-size:1.2rem;margin-bottom:1.25rem;">
+            <i class="bi bi-award-fill text-accent me-2"></i>Scholarship Questions
+        </h2>
+        <div class="accordion" id="scholarshipAccordion">
+
+            <div class="accordion-item">
+                <h3 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#s1">
+                        Are there scholarships for international students in Australia?
+                    </button>
+                </h3>
+                <div id="s1" class="accordion-collapse collapse" data-bs-parent="#scholarshipAccordion">
+                    <div class="accordion-body" style="color:var(--text-secondary);font-size:0.9rem;line-height:1.9;">
+                        Yes, there are hundreds of scholarships available for international students in Australia. These include the Australian Government's Australia Awards Scholarships (fully funded postgraduate scholarships), the Destination Australia Scholarship (for students studying in regional areas), and numerous university-specific merit scholarships. Many university scholarships are awarded automatically based on your academic results when you apply for admission.
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <h3 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#s2">
+                        What is the Australia Awards Scholarship?
+                    </button>
+                </h3>
+                <div id="s2" class="accordion-collapse collapse" data-bs-parent="#scholarshipAccordion">
+                    <div class="accordion-body" style="color:var(--text-secondary);font-size:0.9rem;line-height:1.9;">
+                        The Australia Awards Scholarship is a fully funded scholarship provided by the Australian Government for postgraduate study (Masters and PhD). It covers tuition fees, return airfare, living allowance, and health cover. It is available to students from eligible countries including Nepal and is highly competitive. Recipients must return to their home country for at least two years after completing their studies. Applications open annually — typically between February and April.
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Work Rights -->
+    <div id="work" class="sidebar-card mb-4">
+        <h2 style="font-family:var(--font-display);font-weight:700;font-size:1.2rem;margin-bottom:1.25rem;">
+            <i class="bi bi-briefcase-fill text-accent me-2"></i>Work Rights
+        </h2>
+        <div class="accordion" id="workAccordion">
+
+            <div class="accordion-item">
+                <h3 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#w1">
+                        Can I work while studying in Australia?
+                    </button>
+                </h3>
+                <div id="w1" class="accordion-collapse collapse" data-bs-parent="#workAccordion">
+                    <div class="accordion-body" style="color:var(--text-secondary);font-size:0.9rem;line-height:1.9;">
+                        Yes. Student visa holders can work up to 48 hours per fortnight during their enrolled study period and unlimited hours during official semester breaks. This is one of the most generous work rights policies for international students among major study destinations. Working part-time helps students cover living costs and gain valuable local work experience. You will need a Tax File Number (TFN) from the Australian Taxation Office before you can start working.
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <h3 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#w2">
+                        What is the minimum wage in Australia?
+                    </button>
+                </h3>
+                <div id="w2" class="accordion-collapse collapse" data-bs-parent="#workAccordion">
+                    <div class="accordion-body" style="color:var(--text-secondary);font-size:0.9rem;line-height:1.9;">
+                        Australia has one of the highest minimum wages in the world. The national minimum wage is currently over AUD 23 per hour for casual workers (casual workers receive a loading on top of the base rate). All workers — including international students — are entitled to this rate regardless of visa status. If you believe you are being underpaid, contact the Fair Work Ombudsman at fairwork.gov.au.
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Student Life -->
+    <div id="life" class="sidebar-card mb-4">
+        <h2 style="font-family:var(--font-display);font-weight:700;font-size:1.2rem;margin-bottom:1.25rem;">
+            <i class="bi bi-heart-fill text-accent me-2"></i>Student Life
+        </h2>
+        <div class="accordion" id="lifeAccordion">
+
+            <div class="accordion-item">
+                <h3 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#l1">
+                        Is Australia safe for international students?
+                    </button>
+                </h3>
+                <div id="l1" class="accordion-collapse collapse" data-bs-parent="#lifeAccordion">
+                    <div class="accordion-body" style="color:var(--text-secondary);font-size:0.9rem;line-height:1.9;">
+                        Yes, Australia is one of the safest countries in the world for international students. Its major cities — Melbourne, Sydney, Brisbane, Adelaide, and Perth — consistently rank among the world's most liveable cities. Australia has a strong culture of multiculturalism and inclusion. There are large communities from almost every country in the world in Australian cities, which makes it easier for international students to feel at home.
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <h3 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#l2">
+                        Do I need health insurance in Australia?
+                    </button>
+                </h3>
+                <div id="l2" class="accordion-collapse collapse" data-bs-parent="#lifeAccordion">
+                    <div class="accordion-body" style="color:var(--text-secondary);font-size:0.9rem;line-height:1.9;">
+                        Yes. All international students studying in Australia on a student visa are required by law to hold Overseas Student Health Cover (OSHC) for the entire duration of their stay. OSHC covers visits to the doctor, hospital treatment, emergency ambulance services, and some prescription medicines. Your university may arrange OSHC on your behalf, or you may need to purchase it independently from providers such as Medibank, Bupa, or Allianz Care Australia.
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <h3 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#l3">
+                        Can I bring my family to Australia while I study?
+                    </button>
+                </h3>
+                <div id="l3" class="accordion-collapse collapse" data-bs-parent="#lifeAccordion">
+                    <div class="accordion-body" style="color:var(--text-secondary);font-size:0.9rem;line-height:1.9;">
+                        Yes. Eligible family members — your spouse or de facto partner and dependent children — can accompany you to Australia on a Student visa. Your spouse may be eligible to work in Australia depending on your course level. Children of student visa holders can attend school in Australia. You will need to include family members in your visa application and demonstrate sufficient funds to support them during your stay.
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Still have questions -->
+    <div class="sidebar-card" style="text-align:center;">
+        <h2 style="font-family:var(--font-display);font-weight:700;font-size:1.2rem;margin-bottom:0.75rem;">
+            Still have a question?
+        </h2>
+        <p style="color:var(--text-secondary);margin-bottom:1.5rem;">Can't find what you're looking for? Send us a message and we'll do our best to help.</p>
+        <a href="/contact/" class="btn-primary-aus" style="display:inline-flex;padding:0.75rem 2rem;font-size:1rem;">
+            <i class="bi bi-envelope-fill me-2"></i>Contact Us
+        </a>
+    </div>
+
+</div>
+{% endblock %}
