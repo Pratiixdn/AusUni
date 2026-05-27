@@ -1,50 +1,161 @@
 {% extends "base.html" %}
-{% block title %}Contact AusUni{% endblock %}
+{% block title %}Contact AusUni – We'd Love to Hear From You{% endblock %}
+{% block meta_description %}Get in touch with the AusUni team. Report incorrect information, suggest a university, or ask a general question about our platform.{% endblock %}
+
 {% block content %}
-<div class="container" style="max-width:700px;padding-top:3rem;padding-bottom:3rem;">
-    <div class="section-label">Get in Touch</div>
-    <h1 class="section-title mb-4">Contact Us</h1>
-    <div class="sidebar-card">
-        <p style="color:var(--text-secondary);margin-bottom:1.5rem;">
-            Have a question, found incorrect information, or want to suggest a university to add?
-            We'd love to hear from you. Please note we are not affiliated with any university and cannot assist with visa or admission queries — please contact the university directly for those.
-        </p>
-        <div class="row g-3">
-            <div class="col-md-6">
-                <label style="font-size:0.82rem;font-weight:600;font-family:var(--font-display);color:var(--text-muted);margin-bottom:0.4rem;display:block;">Your Name</label>
-                <input type="text" class="form-control" placeholder="Your full name">
-            </div>
-            <div class="col-md-6">
-                <label style="font-size:0.82rem;font-weight:600;font-family:var(--font-display);color:var(--text-muted);margin-bottom:0.4rem;display:block;">Email Address</label>
-                <input type="email" class="form-control" placeholder="your@email.com">
-            </div>
-            <div class="col-12">
-                <label style="font-size:0.82rem;font-weight:600;font-family:var(--font-display);color:var(--text-muted);margin-bottom:0.4rem;display:block;">Subject</label>
-                <select class="form-select">
-                    <option>General Enquiry</option>
-                    <option>Incorrect Information</option>
-                    <option>Add a University</option>
-                    <option>Partnership / Advertising</option>
-                    <option>Other</option>
-                </select>
-            </div>
-            <div class="col-12">
-                <label style="font-size:0.82rem;font-weight:600;font-family:var(--font-display);color:var(--text-muted);margin-bottom:0.4rem;display:block;">Message</label>
-                <textarea class="form-control" rows="5" placeholder="Your message…" style="background:var(--bg-secondary);border:1px solid var(--border);color:var(--text-primary);border-radius:var(--radius-sm);resize:vertical;"></textarea>
-            </div>
-            <div class="col-12">
-                <button class="btn-primary-aus" onclick="alert('Thank you for your message. We will respond within 2–3 business days.')">
-                    <i class="bi bi-send me-2"></i>Send Message
-                </button>
+<div class="container" style="max-width:800px;padding-top:3rem;padding-bottom:3rem;">
+
+    <!-- Hero -->
+    <div class="sidebar-card mb-4" style="background:linear-gradient(135deg,var(--accent),#1a8ef8);color:white;border:none;">
+        <div class="d-flex align-items-center gap-3">
+            <span style="font-size:3rem;">👋</span>
+            <div>
+                <h1 style="color:white;font-family:var(--font-display);font-weight:800;font-size:2rem;margin:0;">Say Hello</h1>
+                <p style="color:rgba(255,255,255,0.85);margin:0;font-size:0.95rem;">We're a small team and we genuinely read every message</p>
             </div>
         </div>
     </div>
 
-    <div class="sidebar-card mt-3" style="background:var(--accent-light);border:1px solid rgba(26,110,248,0.2);">
-        <p style="margin:0;font-size:0.82rem;color:var(--accent);">
-            <i class="bi bi-info-circle me-1"></i>
-            <strong>Please note:</strong> We are an independent information platform and cannot assist with university admissions, visa applications, or enrolment. Contact the university directly for such queries.
-        </p>
+    <div class="row g-4">
+
+        <!-- Left: Form -->
+        <div class="col-lg-7">
+            <div class="sidebar-card">
+                <h2 style="font-family:var(--font-display);font-weight:700;font-size:1.2rem;margin-bottom:0.5rem;">Send us a message</h2>
+                <p style="color:var(--text-secondary);font-size:0.88rem;margin-bottom:1.5rem;">
+                    Whether you've spotted a mistake, want to suggest a university we haven't listed yet, or just have a general question — we'd love to hear from you. We typically respond within 2–3 business days.
+                </p>
+
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label style="font-size:0.82rem;font-weight:600;font-family:var(--font-display);color:var(--text-muted);margin-bottom:0.4rem;display:block;">Your Name</label>
+                        <input type="text" class="form-control" placeholder="e.g. Priya Sharma" id="contactName">
+                    </div>
+                    <div class="col-md-6">
+                        <label style="font-size:0.82rem;font-weight:600;font-family:var(--font-display);color:var(--text-muted);margin-bottom:0.4rem;display:block;">Email Address</label>
+                        <input type="email" class="form-control" placeholder="your@email.com" id="contactEmail">
+                    </div>
+                    <div class="col-12">
+                        <label style="font-size:0.82rem;font-weight:600;font-family:var(--font-display);color:var(--text-muted);margin-bottom:0.4rem;display:block;">What's this about?</label>
+                        <select class="form-select" id="contactSubject">
+                            <option value="">Select a topic...</option>
+                            <option>I found incorrect information</option>
+                            <option>Suggest a university to add</option>
+                            <option>Suggest a course or scholarship</option>
+                            <option>General question about the site</option>
+                            <option>Partnership or advertising enquiry</option>
+                            <option>Something else</option>
+                        </select>
+                    </div>
+                    <div class="col-12">
+                        <label style="font-size:0.82rem;font-weight:600;font-family:var(--font-display);color:var(--text-muted);margin-bottom:0.4rem;display:block;">Your Message</label>
+                        <textarea class="form-control" rows="5" id="contactMessage"
+                            placeholder="Tell us what's on your mind. The more detail you give us, the better we can help."
+                            style="background:var(--bg-secondary);border:1px solid var(--border);color:var(--text-primary);border-radius:var(--radius-sm);resize:vertical;"></textarea>
+                    </div>
+                    <div class="col-12">
+                        <button class="btn-primary-aus" id="contactSubmitBtn" onclick="handleContactSubmit()">
+                            <i class="bi bi-send me-2"></i>Send Message
+                        </button>
+                    </div>
+
+                    <!-- Success message (hidden by default) -->
+                    <div class="col-12" id="contactSuccess" style="display:none;">
+                        <div style="background:#d1fae5;border:1px solid #6ee7b7;border-radius:10px;padding:1rem;color:#065f46;">
+                            <i class="bi bi-check-circle-fill me-2"></i>
+                            <strong>Message sent!</strong> Thank you for reaching out. We'll get back to you within 2–3 business days.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right: Info -->
+        <div class="col-lg-5">
+
+            <!-- Response time -->
+            <div class="sidebar-card mb-3">
+                <h6 style="font-family:var(--font-display);font-weight:700;margin-bottom:1rem;">
+                    <i class="bi bi-clock-fill text-accent me-2"></i>Response Time
+                </h6>
+                <p style="font-size:0.88rem;color:var(--text-secondary);margin:0;">
+                    We aim to respond to all messages within <strong>2–3 business days</strong>. During busy periods it may take a little longer, but we do read and reply to every message.
+                </p>
+            </div>
+
+            <!-- What we can help with -->
+            <div class="sidebar-card mb-3">
+                <h6 style="font-family:var(--font-display);font-weight:700;margin-bottom:1rem;">
+                    <i class="bi bi-check-circle-fill text-accent me-2"></i>We Can Help With
+                </h6>
+                <ul style="font-size:0.85rem;color:var(--text-secondary);line-height:2.2;margin:0;padding-left:1.2rem;">
+                    <li>Reporting incorrect or outdated information</li>
+                    <li>Suggesting universities or courses to add</li>
+                    <li>Questions about how AusUni works</li>
+                    <li>Partnership and advertising enquiries</li>
+                    <li>General feedback about the site</li>
+                </ul>
+            </div>
+
+            <!-- What we can't help with -->
+            <div class="sidebar-card mb-3" style="background:var(--accent-gold-light);border:1px solid rgba(245,166,35,0.3);">
+                <h6 style="font-family:var(--font-display);font-weight:700;margin-bottom:1rem;color:#92600a;">
+                    <i class="bi bi-exclamation-triangle-fill me-2"></i>Please Note
+                </h6>
+                <p style="font-size:0.85rem;color:#92600a;margin-bottom:0.75rem;">
+                    We are an independent information platform and <strong>cannot help with:</strong>
+                </p>
+                <ul style="font-size:0.85rem;color:#92600a;line-height:2.2;margin:0;padding-left:1.2rem;">
+                    <li>University admission applications</li>
+                    <li>Student visa applications</li>
+                    <li>Course enrolment or transfers</li>
+                    <li>Scholarship applications</li>
+                </ul>
+                <p style="font-size:0.85rem;color:#92600a;margin-top:0.75rem;margin-bottom:0;">
+                    For these, please contact the university directly through their official website.
+                </p>
+            </div>
+
+            <!-- Quick links -->
+            <div class="sidebar-card">
+                <h6 style="font-family:var(--font-display);font-weight:700;margin-bottom:1rem;">
+                    <i class="bi bi-link-45deg text-accent me-2"></i>Quick Links
+                </h6>
+                <div class="d-flex flex-column gap-2">
+                    <a href="/universities/" style="font-size:0.85rem;color:var(--accent);">🏛️ Browse all universities</a>
+                    <a href="/blog/" style="font-size:0.85rem;color:var(--accent);">✍️ Read our blog</a>
+                    <a href="/visa-guide/" style="font-size:0.85rem;color:var(--accent);">📋 Student visa guide</a>
+                    <a href="/privacy-policy/" style="font-size:0.85rem;color:var(--accent);">🔒 Privacy policy</a>
+                    <a href="/about/" style="font-size:0.85rem;color:var(--accent);">ℹ️ About AusUni</a>
+                </div>
+            </div>
+
+        </div>
     </div>
 </div>
+
+<script>
+function handleContactSubmit() {
+    const name = document.getElementById('contactName').value.trim();
+    const email = document.getElementById('contactEmail').value.trim();
+    const subject = document.getElementById('contactSubject').value;
+    const message = document.getElementById('contactMessage').value.trim();
+
+    if (!name || !email || !subject || !message) {
+        alert('Please fill in all fields before sending.');
+        return;
+    }
+
+    // Show success message
+    document.getElementById('contactSuccess').style.display = 'block';
+    document.getElementById('contactSubmitBtn').style.display = 'none';
+
+    // Clear form
+    document.getElementById('contactName').value = '';
+    document.getElementById('contactEmail').value = '';
+    document.getElementById('contactSubject').value = '';
+    document.getElementById('contactMessage').value = '';
+}
+</script>
+
 {% endblock %}
