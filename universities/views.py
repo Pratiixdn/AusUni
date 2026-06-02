@@ -408,8 +408,8 @@ def faq(request):
 
 def terms(request):
     return render(request, 'pages/terms.html')
-    
-    def sop_guide(request):
+
+def sop_guide(request):
     return render(request, 'pages/sop_guide.html')
 
 def scholarship_guide(request):
