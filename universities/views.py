@@ -411,3 +411,6 @@ def terms(request):
     
     def sop_guide(request):
     return render(request, 'pages/sop_guide.html')
+
+def scholarship_guide(request):
+    return render(request, 'pages/scholarship_guide.html')
