@@ -42,4 +42,5 @@ urlpatterns = [
     path('english-comparison/', views.english_comparison, name='english_comparison'),
     path('faq/', views.faq, name='faq'),
     path('terms/', views.terms, name='terms'),
+    path('sop-guide/', views.sop_guide, name='sop_guide'),
 ]
