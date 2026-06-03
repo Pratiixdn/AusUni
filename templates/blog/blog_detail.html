@@ -7,7 +7,7 @@
     <h1 style="font-family:var(--font-display);font-weight:700;margin-top:1rem;margin-bottom:0.5rem;">{{ post.title }}</h1>
     <p style="color:var(--text-muted);font-size:0.85rem;margin-bottom:2rem;">{{ post.created_at|date:"F j, Y" }}</p>
     <div style="color:var(--text-secondary);line-height:1.9;font-size:1rem;">
-        {{ post.content|linebreaks }}
+        {{ post.content|linebreaksbr }}
     </div>
 
     <!-- Ad Unit -->
