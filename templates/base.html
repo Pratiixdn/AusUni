@@ -169,7 +169,7 @@
                 <div class="col-lg-2 col-md-4">
                     <h6 class="footer-heading">States</h6>
                     <ul class="footer-links">
-                        {% for state in all_states|slice:":6" %}
+                       {% for state in all_states %}
                         <li><a href="{% url 'state_detail' slug=state.slug %}">{{ state.name }}</a></li>
                         {% endfor %}
                     </ul>
