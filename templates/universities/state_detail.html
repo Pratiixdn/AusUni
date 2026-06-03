@@ -16,6 +16,21 @@
 </section>
 
 <div class="container section">
+    {% if state.description %}
+<div class="container" style="padding-top:2rem;padding-bottom:1rem;">
+    <div class="sidebar-card">
+        <h2 style="font-family:var(--font-display);font-weight:700;font-size:1.2rem;margin-bottom:1rem;">
+            <i class="bi bi-geo-alt-fill text-accent me-2"></i>Studying in {{ state.name }}
+        </h2>
+        <div style="color:var(--text-secondary);line-height:1.9;">
+            {{ state.description|linebreaks }}
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<div class="container section">
+    <!-- Cities -->
     <!-- Cities -->
     {% if cities %}
     <div class="mb-5">
