@@ -11,7 +11,7 @@
                 <div style="color:rgba(255,255,255,0.75);font-size:0.875rem;"><i class="bi bi-building me-1"></i>{{ universities|length }} Universit{{ universities|length|pluralize:"y,ies" }} &nbsp;|&nbsp; <i class="bi bi-geo-alt me-1"></i>Capital: {{ state.capital }}</div>
             </div>
         </div>
-        {% if state.description %}<p style="color:rgba(255,255,255,0.7);margin-top:1.5rem;max-width:700px;font-size:0.9rem;">{{ state.description|truncatewords:30 }}</p>{% endif %}
+        {% if state.description %}<p style="color:rgba(255,255,255,0.7);margin-top:1.5rem;max-width:700px;font-size:0.9rem;">{{ state.description }}</p>{% endif %}
     </div>
 </section>
 
