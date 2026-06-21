@@ -39,8 +39,8 @@ def state_detail(request, slug):
     state = get_object_or_404(State, slug=slug)
     cities = state.cities.annotate(uni_count=Count('universities')).order_by('name')
     universities = University.objects.filter(state=state).select_related('city').annotate(
-        course_count=Count('courses'),
-        scholarship_count=Count('scholarships'),
+        course_count=Count('courses', distinct=True),
+        scholarship_count=Count('scholarships', distinct=True),
     ).order_by('name')
 
     type_filter = request.GET.get('type')
@@ -78,8 +78,8 @@ def city_detail(request, state_slug, city_slug):
 
 def university_list(request):
     universities = University.objects.select_related('state', 'city').annotate(
-        course_count=Count('courses'),
-        scholarship_count=Count('scholarships'),
+        course_count=Count('courses', distinct=True),
+        scholarship_count=Count('scholarships', distinct=True),
     )
 
     # Filters
