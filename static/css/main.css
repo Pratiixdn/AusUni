@@ -49,10 +49,10 @@
 }
 
 [data-theme="dark"] {
-    --bg-primary: #0a0e1a;
-    --bg-secondary: #111827;
-    --bg-card: #161e30;
-    --bg-nav: rgba(10, 14, 26, 0.97);
+    --bg-primary: #000000;
+    --bg-secondary: #0a0a0a;
+    --bg-card: #141414;
+    --bg-nav: rgba(0, 0, 0, 0.97);
     --text-primary: #f0f4ff;
     --text-secondary: #a8b5cc;
     --text-muted: #6b7a9a;
