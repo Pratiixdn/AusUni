@@ -16,7 +16,10 @@ from .models import State, City, University, Campus, Course, Scholarship, Bookma
 
 def home(request):
     states = State.objects.annotate(uni_count=Count('universities')).order_by('name')
-    featured_unis = University.objects.filter(is_featured=True).select_related('state', 'city')[:6]
+    featured_unis = University.objects.filter(is_featured=True).select_related('state', 'city').annotate(
+    course_count=Count('courses', distinct=True),
+    scholarship_count=Count('scholarships', distinct=True),
+)[:6]
     popular_courses = Course.objects.filter(is_popular=True).select_related('university')[:8]
     total_universities = University.objects.count()
     total_courses = Course.objects.count()
